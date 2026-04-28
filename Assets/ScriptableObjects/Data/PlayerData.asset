@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   initialHealth: 100
-  moveSpeed: 5
+  moveSpeed: 13
   rotationSpeed: 1
-  gravity: -9.81
+  gravity: -20
+  gravityAcceleration: 10
   bulletDamage: 1
   initialFireRate: 0

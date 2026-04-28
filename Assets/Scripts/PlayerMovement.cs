@@ -2,26 +2,33 @@ using UnityEngine;
 
 namespace Player
 {
+    [RequireComponent(typeof(DetectCollision))]
+    [RequireComponent(typeof(PlayerInputController))]
     [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private CharacterData _playerData;
-        private CharacterController _controller;
         private PlayerInputController _inputController;
+        private CharacterController _controller;
+        private DetectCollision _detectCollision;
 
         [Header("Movement Values")]
         private float _moveSpeed;
-        private float _gravitySpeed;
         private Vector3 _velocity;
+        private float _gravitySpeed;
+        private float _gravityAcceleration;
+        private float _currentGravitySpeed = 1;
 
         private void Awake()
         {
-            _controller = GetComponent<CharacterController>();
             _inputController = GetComponent<PlayerInputController>();
+            _detectCollision = GetComponent<DetectCollision>();
+            _controller = GetComponent<CharacterController>();
 
             _moveSpeed = _playerData.moveSpeed;
             _gravitySpeed = _playerData.gravity;
+            _gravityAcceleration = _playerData.gravityAcceleration;
         }
 
         private void Update()
@@ -36,8 +43,14 @@ namespace Player
         }
         private void CalculateGravity()
         {
-            // Gravity
-            _velocity.y += _gravitySpeed * Time.deltaTime;
+            if (_detectCollision.IsGrounded)
+            {
+                _currentGravitySpeed = 1;
+                _velocity.y = 0;
+                return;
+            }
+            _currentGravitySpeed += _gravityAcceleration * Time.deltaTime;
+            _velocity.y += _gravitySpeed * _currentGravitySpeed * Time.deltaTime;
             _controller.Move(_velocity * Time.deltaTime);
         }
     }
