@@ -11,6 +11,8 @@ namespace Player
         private InputActionMap _UIActionMap;
         public Vector2 moveInput { get; private set; }
         public Vector2 lookInput { get; private set; }
+
+        public bool IsUsingGamepad => Gamepad.current != null;
         public Action OnFire;
 
         private void OnEnable()
