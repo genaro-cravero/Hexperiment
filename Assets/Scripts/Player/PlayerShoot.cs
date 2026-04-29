@@ -1,14 +1,20 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
+using UnityEngine.Pool;
 
 namespace Player
 {
     public class PlayerShoot : MonoBehaviour
     {
+        [Header("Rotation Settings")]
         [SerializeField] private GameObject _playerVisual;
         [SerializeField, Range(0.1f, 20f)] private float _smoothRotationVelocity = 5f;
+
+        [Header("Shooting Settings")]
+        [SerializeField] private Bullet _bulletPrefab;
+        [SerializeField] private Transform _shootPoint;
+        private IObjectPool<Bullet> _bulletPool;
 
         private DetectCollision _detectCollision;
         private PlayerInputController _inputController;
@@ -24,6 +30,14 @@ namespace Player
             _inputController = GetComponent<PlayerInputController>();
             _detectCollision = GetComponent<DetectCollision>();
             _camera = Camera.main;
+
+            _bulletPool = new ObjectPool<Bullet>(
+                createFunc: () => Instantiate(_bulletPrefab),
+                actionOnGet: bullet => bullet.gameObject.SetActive(true),
+                actionOnRelease: bullet => bullet.gameObject.SetActive(false),
+                actionOnDestroy: bullet => Destroy(bullet.gameObject),
+                maxSize: 20
+            );
         }
 
         private void OnEnable()
@@ -85,6 +99,9 @@ namespace Player
         {
             _isShooting = true;
             yield return null;
+            var bullet = _bulletPool.Get();
+            bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
+            bullet.Init(_bulletPool);
             yield return new WaitForSeconds(0.5f);
             _isShooting = false;
             _justShot = true;
@@ -125,7 +142,7 @@ namespace Player
                     Vector3 targetDirection = hit.point - _playerVisual.transform.position;
                     targetDirection.y = 0f;
                     targetRotation = Quaternion.LookRotation(targetDirection);
-                    
+
                     _playerVisual.transform.rotation = Quaternion.RotateTowards(_playerVisual.transform.rotation,
                         targetRotation, _smoothRotationVelocity);
                 }
