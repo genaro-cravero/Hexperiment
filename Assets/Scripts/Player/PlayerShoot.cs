@@ -12,18 +12,22 @@ namespace Player
         [SerializeField, Range(0.1f, 20f)] private float _smoothRotationVelocity = 5f;
 
         [Header("Shooting Settings")]
+        [SerializeField] private CharacterData _playerData;
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _shootPoint;
+        private float _fireRate;
         private IObjectPool<Bullet> _bulletPool;
 
         private DetectCollision _detectCollision;
         private PlayerInputController _inputController;
 
         private bool _isShooting;
-        private bool _justShot;
+        private bool _justEndedShooting;
         private bool _smoothRotating;
-        private Camera _camera;
+        private float _nextFireTime;
+
         private const float MIN_ROTATION_FACTOR = 0.01f;
+        private Camera _camera;
 
         private void Awake()
         {
@@ -38,21 +42,23 @@ namespace Player
                 actionOnDestroy: bullet => Destroy(bullet.gameObject),
                 maxSize: 20
             );
+            _fireRate = _playerData.initialFireRate;
         }
 
         private void OnEnable()
         {
-            _inputController.OnFire += Shoot;
+            _inputController.OnFirePressed += StartShooting;
+            _inputController.OnFireReleased += StopShooting;
         }
         private void OnDisable()
         {
-            _inputController.OnFire -= Shoot;
+            _inputController.OnFirePressed -= StartShooting;
+            _inputController.OnFireReleased -= StopShooting;
         }
 
         void Update()
         {
-            if (_isShooting) return;
-            if (_justShot)
+            if (!_isShooting && _justEndedShooting)
             {
                 if (_smoothRotating) return;
                 if (_inputController.IsUsingGamepad)
@@ -89,22 +95,41 @@ namespace Player
             _playerVisual.transform.rotation = Quaternion.LookRotation(direction);
         }
 
-        private void Shoot()
+        private void StartShooting()
         {
-            if (_isShooting) return;
+            if (_isShooting || Time.time < _nextFireTime) return;
             StartCoroutine(ShootCoroutine());
+        }
+        private void StopShooting()
+        {
+            _isShooting = false;
         }
 
         private IEnumerator ShootCoroutine()
         {
             _isShooting = true;
-            yield return null;
-            var bullet = _bulletPool.Get();
-            bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
-            bullet.Init(_bulletPool);
-            yield return new WaitForSeconds(0.5f);
+            while (_isShooting)//ToDo Check if player alive?
+            {
+                if(_smoothRotating) 
+                    yield return new WaitUntil(() => !_smoothRotating);
+
+                var waitTime = _nextFireTime - Time.time;
+                if (waitTime > 0f)
+                    yield return new WaitForSeconds(waitTime);
+
+                var bullet = _bulletPool.Get();
+                bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
+                bullet.Init(_bulletPool);
+
+                _nextFireTime = Time.time + _fireRate;
+
+                yield return null;
+                yield return new WaitForSeconds(_fireRate);
+
+            }
+
+            _justEndedShooting = true;
             _isShooting = false;
-            _justShot = true;
         }
 
         private IEnumerator SmoothRotateStick()
@@ -126,7 +151,7 @@ namespace Player
             }
 
             _smoothRotating = false;
-            _justShot = false;
+            _justEndedShooting = false;
         }
 
         private IEnumerator SmoothRotateMouse()
@@ -150,7 +175,7 @@ namespace Player
             }
 
             _smoothRotating = false;
-            _justShot = false;
+            _justEndedShooting = false;
         }
     }
 }

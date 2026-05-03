@@ -13,7 +13,8 @@ namespace Player
         public Vector2 lookInput { get; private set; }
 
         public bool IsUsingGamepad => Gamepad.current != null;
-        public Action OnFire;
+        public Action OnFirePressed;
+        public Action OnFireReleased;
 
         private void OnEnable()
         {
@@ -27,7 +28,8 @@ namespace Player
             _gameplayActionMap["Move"].canceled += OnStopMovement;
 
             _gameplayActionMap["Look"].performed += OnLook;
-            _gameplayActionMap["Fire"].performed += OnFirePressed;
+            _gameplayActionMap["Fire"].performed += OnStartFire;
+            _gameplayActionMap["Fire"].canceled += OnStopFire;
         }
 
         private void OnDisable()
@@ -36,7 +38,8 @@ namespace Player
             _gameplayActionMap["Move"].performed -= OnMove;
             _gameplayActionMap["Move"].canceled -= OnStopMovement;
             _gameplayActionMap["Look"].performed -= OnLook;
-            _gameplayActionMap["Fire"].performed -= OnFirePressed;
+            _gameplayActionMap["Fire"].performed -= OnStartFire;
+            _gameplayActionMap["Fire"].canceled -= OnStopFire;
 
             _gameplayActionMap.Disable();
             _UIActionMap.Disable();
@@ -55,9 +58,13 @@ namespace Player
         {
             lookInput = context.ReadValue<Vector2>();
         }
-        private void OnFirePressed(InputAction.CallbackContext context)
+        private void OnStartFire(InputAction.CallbackContext context)
         {
-            OnFire?.Invoke();
+            OnFirePressed?.Invoke();
+        }
+        private void OnStopFire(InputAction.CallbackContext context)
+        {
+            OnFireReleased?.Invoke();
         }
 
     }

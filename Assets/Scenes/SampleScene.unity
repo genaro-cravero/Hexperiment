@@ -18854,43 +18854,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1201408414}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1204194782 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4208765883546247857, guid: a225128a8be13e847a6d9e223a662048, type: 3}
-  m_PrefabInstance: {fileID: 8473308793108137861}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1204194790 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7727710396029906660, guid: a225128a8be13e847a6d9e223a662048, type: 3}
   m_PrefabInstance: {fileID: 8473308793108137861}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1204194793
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1204194782}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1216461431
 GameObject:
   m_ObjectHideFlags: 0
@@ -32527,9 +32495,9 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6773176402966450584, guid: a225128a8be13e847a6d9e223a662048, type: 3}
-      propertyPath: _bulletPrefab
+      propertyPath: _playerData
       value: 
-      objectReference: {fileID: 7767240497636970606, guid: 44d2ad13c1e7f1d4e81e90a3fe02f2b0, type: 3}
+      objectReference: {fileID: 11400000, guid: 6bef8f74191759b47b8bfd96931f36af, type: 2}
     - target: {fileID: 7727710396029906660, guid: a225128a8be13e847a6d9e223a662048, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -32573,10 +32541,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4208765883546247857, guid: a225128a8be13e847a6d9e223a662048, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 1204194793}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a225128a8be13e847a6d9e223a662048, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
