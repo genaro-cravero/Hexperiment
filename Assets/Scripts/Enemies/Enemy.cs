@@ -2,6 +2,8 @@ using UnityEngine;
 
 namespace Enemy
 {
+    [RequireComponent(typeof(EnemyCombat))]
+    [RequireComponent(typeof(EnemyMovement))]
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private CharacterData _enemyData;
@@ -35,6 +37,8 @@ namespace Enemy
                 attackState = _attackState,
                 enemyCombat = enemycombat
             };
+
+            ChangeState(_chaseState);
 
         }
 

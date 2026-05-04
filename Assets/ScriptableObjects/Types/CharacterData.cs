@@ -13,4 +13,7 @@ public class CharacterData : ScriptableObject
     [Header("Shooting Setup")]
     [Range(0, 10)] public float bulletDamage;
     [Range(0, 5)] public float initialFireRate;
+
+    [Header("Range")]
+    [Range(0, 50)] public float attackDistance = 10f;
 }

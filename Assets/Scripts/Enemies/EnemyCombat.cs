@@ -4,12 +4,12 @@ namespace Enemy
 {
     public class EnemyCombat : MonoBehaviour
     {
-        [SerializeField] private float _attackRange = 10f;
         private const float RANGE_THRESHOLD = 0.5f;
         private bool _isInAttackRange;
 
         private Enemy _enemy;
         private Transform _player => _enemy.Context.player;
+        private float _attackRange => _enemy.Context.enemyData.attackDistance;
 
         private void Awake()
         {
