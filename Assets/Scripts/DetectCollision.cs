@@ -9,6 +9,7 @@ public class DetectCollision : MonoBehaviour
     [SerializeField] private float _checkDistance = 0.2f;
     public bool IsGrounded => IsOnGround();
     public bool IsGroundedAround => IsGroundAround();
+    public LayerMask groundLayer => _groundLayer;
 
     private bool IsOnGround()
     {

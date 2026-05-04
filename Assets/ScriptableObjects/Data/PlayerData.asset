@@ -18,4 +18,4 @@ MonoBehaviour:
   gravity: -20
   gravityAcceleration: 10
   bulletDamage: 1
-  initialFireRate: 0
+  initialFireRate: 1.5
