@@ -1,17 +1,20 @@
 using UnityEngine;
-public class EnemyStateMachine
+namespace Enemy
 {
-    private IEnemyState _currentState;
-
-    public void ChangeState(IEnemyState newState)
+    public class EnemyStateMachine
     {
-        _currentState?.Exit();
-        _currentState = newState;
-        _currentState.Enter();
-    }
+        private IEnemyState _currentState;
 
-    public void Update()
-    {
-        _currentState?.Update();
+        public void ChangeState(IEnemyState newState)
+        {
+            _currentState?.Exit();
+            _currentState = newState;
+            _currentState.Enter();
+        }
+
+        public void Update()
+        {
+            _currentState?.Update();
+        }
     }
 }

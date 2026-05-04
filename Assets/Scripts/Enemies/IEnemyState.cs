@@ -1,6 +1,9 @@
-public interface IEnemyState
+namespace Enemy
 {
-    void Enter();
-    void Update();
-    void Exit();
+    public interface IEnemyState
+    {
+        void Enter();
+        void Update();
+        void Exit();
+    }
 }
