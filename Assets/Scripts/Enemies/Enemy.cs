@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private EnemyStateMachine stateMachine;
+    private EnemyStateMachine _stateMachine;
 
     void Awake()
     {
-        stateMachine = new EnemyStateMachine();
+        _stateMachine = new EnemyStateMachine();
     }
 
     void Update()
     {
-        stateMachine.Update();
+        _stateMachine.Update();
     }
 
     public void ChangeState(IEnemyState newState)
     {
-        stateMachine.ChangeState(newState);
+        _stateMachine.ChangeState(newState);
     }
 }

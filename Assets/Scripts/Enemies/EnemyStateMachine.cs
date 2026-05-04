@@ -1,17 +1,17 @@
 using UnityEngine;
 public class EnemyStateMachine
 {
-    private IEnemyState currentState;
+    private IEnemyState _currentState;
 
     public void ChangeState(IEnemyState newState)
     {
-        currentState?.Exit();
-        currentState = newState;
-        currentState.Enter();
+        _currentState?.Exit();
+        _currentState = newState;
+        _currentState.Enter();
     }
 
     public void Update()
     {
-        currentState?.Update();
+        _currentState?.Update();
     }
 }
