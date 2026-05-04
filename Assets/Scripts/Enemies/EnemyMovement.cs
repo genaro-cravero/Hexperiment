@@ -14,12 +14,14 @@ namespace Enemy
         {
             _enemy = GetComponent<Enemy>();
             _agent = GetComponent<NavMeshAgent>();
+        }
 
+        private void Start()
+        {
             _agent.speed = _data.moveSpeed;
             _agent.angularSpeed = _data.rotationSpeed * 360;
             _agent.stoppingDistance = _data.attackDistance;
-            _agent.acceleration = _agent.angularSpeed /2;
-
+            _agent.acceleration = _agent.angularSpeed / 2;
         }
 
         public void MoveTo(Vector3 targetPosition)
@@ -27,7 +29,7 @@ namespace Enemy
             if (_agent.isStopped)
                 _agent.isStopped = false;
 
-            if (!_enemyCombat.IsInAttackRange())
+            if (!_enemyCombat.IsInAttackRange() || !_enemyCombat.IsPlayerInSight())
             {
                 _agent.SetDestination(targetPosition);
             }

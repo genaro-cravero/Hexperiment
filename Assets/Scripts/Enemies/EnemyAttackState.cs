@@ -8,6 +8,7 @@ namespace Enemy
         private Transform _player => _enemy.Context.player;
         private IEnemyState _chaseState => _enemy.Context.chaseState;
         private EnemyCombat _enemyCombat => _enemy.Context.enemyCombat;
+        private EnemyMovement _movement => _enemy.Context.movement;
 
         public EnemyAttackState(Enemy enemy)
         {
@@ -19,6 +20,13 @@ namespace Enemy
         public void Update()
         {
             //_enemyCombat.Attack(_player);
+            if (!_enemyCombat.IsPlayerInSight())
+            {
+                _movement.MoveTo(_player.position);
+                return;
+            }
+
+            _movement.Stop();
 
             if (!_enemyCombat.IsInAttackRange())
             {
