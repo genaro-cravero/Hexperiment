@@ -17,5 +17,6 @@ MonoBehaviour:
   rotationSpeed: 1
   gravity: -20
   gravityAcceleration: 10
-  bulletDamage: 1
-  initialFireRate: 1.5
+  attackDamage: 1
+  attackCoolDown: 1
+  attackDistance: 10

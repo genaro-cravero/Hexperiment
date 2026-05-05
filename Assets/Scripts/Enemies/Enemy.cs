@@ -23,9 +23,6 @@ namespace Enemy
             _player = FindAnyObjectByType<Player.PlayerMovement>().transform;
             _movement = GetComponent<EnemyMovement>();
 
-            _attackState = new EnemyAttackState(this);
-            _chaseState = new EnemyChaseState(this);
-
             var enemycombat = GetComponent<EnemyCombat>();
 
             _context = new EnemyContext
@@ -33,10 +30,14 @@ namespace Enemy
                 enemyData = _enemyData,
                 player = _player,
                 movement = _movement,
-                chaseState = _chaseState,
-                attackState = _attackState,
                 enemyCombat = enemycombat
             };
+
+            _attackState = new EnemyAttackState(this);
+            _chaseState = new EnemyChaseState(this);
+
+            _context.attackState = _attackState;
+            _context.chaseState = _chaseState;
 
             ChangeState(_chaseState);
 

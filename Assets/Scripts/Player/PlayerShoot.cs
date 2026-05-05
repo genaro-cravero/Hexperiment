@@ -42,7 +42,7 @@ namespace Player
                 actionOnDestroy: bullet => Destroy(bullet.gameObject),
                 maxSize: 20
             );
-            _fireRate = _playerData.initialFireRate;
+            _fireRate = _playerData.attackCoolDown;
         }
 
         private void OnEnable()
@@ -110,7 +110,7 @@ namespace Player
             _isShooting = true;
             while (_isShooting)//ToDo Check if player alive?
             {
-                if(_smoothRotating) 
+                if (_smoothRotating)
                     yield return new WaitUntil(() => !_smoothRotating);
 
                 var waitTime = _nextFireTime - Time.time;
@@ -135,14 +135,17 @@ namespace Player
         private IEnumerator SmoothRotateStick()
         {
             _smoothRotating = true;
-            Quaternion targetRotation = new Quaternion();
+
+            var input = _inputController.lookInput;
+            Vector3 targetDirection = new Vector3(input.x, 0f, input.y);
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
             while (_playerVisual.transform.rotation != targetRotation)
             {
-                var input = _inputController.lookInput;
+                input = _inputController.lookInput;
                 if (input.sqrMagnitude < MIN_ROTATION_FACTOR) { yield return null; continue; }
 
-                Vector3 targetDirection = new Vector3(input.x, 0f, input.y);
+                targetDirection = new Vector3(input.x, 0f, input.y);
                 targetRotation = Quaternion.LookRotation(targetDirection);
 
                 _playerVisual.transform.rotation = Quaternion.RotateTowards(_playerVisual.transform.rotation,
@@ -157,14 +160,23 @@ namespace Player
         private IEnumerator SmoothRotateMouse()
         {
             _smoothRotating = true;
-            Quaternion targetRotation = new Quaternion();
+            Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Vector3 targetDirection = Vector3.zero;
+
+            if (Physics.Raycast(ray, out RaycastHit hit1, 100f, _detectCollision.groundLayer))
+            {
+                targetDirection = hit1.point - _playerVisual.transform.position;
+                targetDirection.y = 0f;
+            }
+
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
             while (_playerVisual.transform.rotation != targetRotation)
             {
-                Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+                ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
                 if (Physics.Raycast(ray, out RaycastHit hit, 100f, _detectCollision.groundLayer))
                 {
-                    Vector3 targetDirection = hit.point - _playerVisual.transform.position;
+                    targetDirection = hit.point - _playerVisual.transform.position;
                     targetDirection.y = 0f;
                     targetRotation = Quaternion.LookRotation(targetDirection);
 

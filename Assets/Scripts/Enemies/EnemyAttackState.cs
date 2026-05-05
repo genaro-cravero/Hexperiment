@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Enemy
@@ -9,21 +10,30 @@ namespace Enemy
         private IEnemyState _chaseState => _enemy.Context.chaseState;
         private EnemyCombat _enemyCombat => _enemy.Context.enemyCombat;
         private EnemyMovement _movement => _enemy.Context.movement;
+        private IEnemyAttack _attack;
 
         public EnemyAttackState(Enemy enemy)
         {
             _enemy = enemy;
+            _attack = _enemy.GetComponent<IEnemyAttack>();
+            _attack.Initialize(_enemy.Context);
         }
 
-        public void Enter() { }
-
-        public void Update()
+        public void Enter()
         {
-            //_enemyCombat.Attack(_player);
-            if (!_enemyCombat.IsPlayerInSight())
+            _enemy.StartCoroutine(AttackCoroutine());
+        }
+
+        private IEnumerator AttackCoroutine()
+        {
+            _attack.Attack();
+            yield return null;
+            yield return new WaitUntil(() => !_attack.IsAttacking);
+
+            while (!_enemyCombat.IsPlayerInSight())
             {
                 _movement.MoveTo(_player.position);
-                return;
+                yield return null;
             }
 
             _movement.Stop();
@@ -31,9 +41,17 @@ namespace Enemy
             if (!_enemyCombat.IsInAttackRange())
             {
                 _enemy.ChangeState(_chaseState);
+                yield break;
             }
+
+            _enemy.StartCoroutine(AttackCoroutine());
         }
 
-        public void Exit() { }
+        public void Exit()
+        {
+            _enemy.StopAllCoroutines();
+        }
+
+        public void Update(){ }
     }
 }
