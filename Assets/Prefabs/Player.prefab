@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9095767639265813879}
   - component: {fileID: 3866928262818598605}
   - component: {fileID: 5686528398850218692}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 2026327382695340601}
   - component: {fileID: 3521256034992017880}
   - component: {fileID: 8296521213197050985}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 6387326753322452126}
   - component: {fileID: 2335974769555397062}
   - component: {fileID: 6773176402966450584}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DetectCollision
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 9
   _feetPos: {x: 0, y: -0.91, z: 0}
   _checkDistance: 0.1
 --- !u!114 &2335974769555397062
@@ -353,9 +353,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerShoot
   _playerVisual: {fileID: 264010518063303792}
   _smoothRotationVelocity: 15
-  _playerData: {fileID: 0}
+  _playerData: {fileID: 11400000, guid: 6bef8f74191759b47b8bfd96931f36af, type: 2}
   _bulletPrefab: {fileID: 7767240497636970606, guid: 44d2ad13c1e7f1d4e81e90a3fe02f2b0, type: 3}
   _shootPoint: {fileID: 2936941766311414948}
+  _shootLayer:
+    serializedVersion: 2
+    m_Bits: 136
 --- !u!1 &7537065846323805486
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +368,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2936941766311414948}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -381,7 +384,7 @@ Transform:
   m_GameObject: {fileID: 7537065846323805486}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.692}
+  m_LocalPosition: {x: 0, y: 0, z: 0.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

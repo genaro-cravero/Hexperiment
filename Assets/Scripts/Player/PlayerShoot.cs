@@ -15,6 +15,7 @@ namespace Player
         [SerializeField] private CharacterData _playerData;
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _shootPoint;
+        [SerializeField] private LayerMask _shootLayer;
         private float _fireRate;
         private IObjectPool<Bullet> _bulletPool;
 
@@ -37,7 +38,11 @@ namespace Player
 
             _bulletPool = new ObjectPool<Bullet>(
                 createFunc: () => Instantiate(_bulletPrefab),
-                actionOnGet: bullet => bullet.gameObject.SetActive(true),
+                actionOnGet: bullet =>
+                {
+                    bullet.SetParameters(_shootLayer, _playerData.attackDamage);
+                    bullet.gameObject.SetActive(true);
+                },
                 actionOnRelease: bullet => bullet.gameObject.SetActive(false),
                 actionOnDestroy: bullet => Destroy(bullet.gameObject),
                 maxSize: 20

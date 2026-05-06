@@ -7,7 +7,8 @@ public class Bullet : MonoBehaviour
     //ToDO change this to a scriptable object 
     [SerializeField] private float _speed = 20f;
     [SerializeField] private float _lifeTime = 3f;
-
+    private float _damage;
+    private LayerMask _targetLayer;
     private IObjectPool<Bullet> _pool;
 
     public void Init(IObjectPool<Bullet> pool)
@@ -24,12 +25,21 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //ToDo Check for healthManager
-        _pool.Release(this);
+        if((_targetLayer.value & (1 << other.gameObject.layer)) != 0)
+        {
+            _pool.Release(this);
+        }
     }
 
     private IEnumerator ReturnAfterLifetime()
     {
         yield return new WaitForSeconds(_lifeTime);
         _pool.Release(this);
+    }
+
+    public void SetParameters(LayerMask mask, float damage)
+    {
+        _targetLayer = mask;
+        _damage = damage;
     }
 }

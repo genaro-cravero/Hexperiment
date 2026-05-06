@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GlowMaterial Base Yellow
+  m_Name: GlowMaterial Base Red
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 2100000, guid: baff6414ef631814aadc7cf229a698d3, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -35,10 +35,10 @@ Material:
     m_Floats:
     - _Smoothness: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.76317644, b: 0.0141509175, a: 1}
-    - _Color: {r: 1, g: 0.7631763, b: 0.0141509175, a: 1}
-    - _EmissionColor: {r: 3.8867924, g: 2.882401, b: 0.12833756, a: 1}
-    - _SpecColor: {r: 1, g: 0.9374701, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 0.3365996, b: 0.015686274, a: 1}
+    - _Color: {r: 1, g: 0.33659956, b: 0.015686274, a: 1}
+    - _EmissionColor: {r: 0.48584908, g: 0.017805994, b: 0.017805994, a: 1}
+    - _SpecColor: {r: 1, g: 0, b: 0.73942924, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2756055043791307004
