@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5a028ef7b264e246a3d23874698a4cc, type: 3}
-  m_Name: PlayerData
+  m_Name: EnemyMeleeData
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  initialHealth: 100
+  initialHealth: 3
   moveSpeed: 13
-  rotationSpeed: 1
+  rotationSpeed: 0.5
   gravity: -20
   gravityAcceleration: 10
   attackDamage: 1
-  attackCoolDown: 1
-  attackDistance: 10
+  attackCoolDown: 0.5
+  attackDistance: 1.3
