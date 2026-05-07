@@ -47,7 +47,11 @@ namespace Health
             if (_healthBar)
             {
                 if(IsAlive)
+                {
+                    if(!_healthBar.gameObject.activeSelf)
+                        _healthBar.gameObject.SetActive(true);
                     _healthBar.value = _currentHealth / _maxHealth;
+                }
                 else
                     _healthBar.gameObject.SetActive(false);
             }

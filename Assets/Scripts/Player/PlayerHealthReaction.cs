@@ -1,17 +1,18 @@
+using Enemy;
 using Health;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace Enemy
+namespace Player
 {
-    public class EnemyHealthReaction : MonoBehaviour
+    public class PlayerHealthReaction : MonoBehaviour
     {
+
         private HealthComponent _health;
-        private EnemyMovement _enemyMovement;
 
         private void Awake()
         {
             _health = GetComponent<HealthComponent>();
-            _enemyMovement = GetComponent<EnemyMovement>();
         }
 
         private void Start()
@@ -28,13 +29,12 @@ namespace Enemy
 
         private void HandleDamage(float damage, GameObject source)
         {
-            Vector3 pushDirection = (transform.position - source.transform.position).normalized;
-            _enemyMovement.PushBack(-transform.forward, damage);
+            //VFX and SFX for player damage
         }
 
         private void HandleDie()
         {
-            gameObject.SetActive(false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
