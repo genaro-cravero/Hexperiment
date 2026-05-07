@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 1793895371064151042}
   - component: {fileID: 8653105881391200737}
   - component: {fileID: 327639024681591670}
+  - component: {fileID: 5122797118794730658}
   m_Layer: 7
   m_Name: MeleeEnemy
   m_TagString: Untagged
@@ -316,6 +317,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health.HealthComponent
   _characterData: {fileID: 11400000, guid: e0e02166a4d6f2146b08963027c0c60a, type: 2}
   _healthBar: {fileID: 2538670702583953865}
+--- !u!114 &5122797118794730658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 774442822616403455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e08a39ef326214c91acabe660b0d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyHealthReaction
 --- !u!1 &3572642967564675542
 GameObject:
   m_ObjectHideFlags: 0

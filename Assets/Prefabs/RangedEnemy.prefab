@@ -455,6 +455,7 @@ GameObject:
   - component: {fileID: 8335839486575170888}
   - component: {fileID: 8032005389448973781}
   - component: {fileID: 4856555205975871051}
+  - component: {fileID: 442264432432383749}
   m_Layer: 7
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -595,6 +596,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health.HealthComponent
   _characterData: {fileID: 11400000, guid: 0afe4ef32487e0b449cb497d0176de03, type: 2}
   _healthBar: {fileID: 1006775747527505203}
+--- !u!114 &442264432432383749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8071178969530955921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e08a39ef326214c91acabe660b0d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyHealthReaction
 --- !u!1 &8914605348279556465
 GameObject:
   m_ObjectHideFlags: 0

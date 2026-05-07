@@ -42,7 +42,7 @@ namespace Enemy
             {
                 if (hits[0].TryGetComponent(out Health.IDamageable damageable))
                 {
-                    damageable.TakeDamage(_damage);
+                    damageable.TakeDamage(_damage, gameObject);
                 }
             }
 

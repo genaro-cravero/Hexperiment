@@ -12,7 +12,7 @@ namespace Health
 
         public bool IsAlive { get; private set; }
 
-        public Action OnDamage;
+        public Action<float, GameObject> OnDamage;
         public Action OnDie;
 
         public HealthManager(float maxHealth, Slider healthBar)
@@ -23,14 +23,16 @@ namespace Health
             _healthBar = healthBar;
         }
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, GameObject source)
         {
             _currentHealth -= damage;
-            OnDamage?.Invoke();
             if (_currentHealth <= 0)
             {
                 Die();
+                UpdateHealthBar();
+                return;
             }
+            OnDamage?.Invoke(damage, source);
             UpdateHealthBar();
         }
 

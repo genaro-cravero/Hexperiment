@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
         {
             if (other.TryGetComponent(out Health.IDamageable damageable))
             {
-                damageable.TakeDamage(_damage);
+                damageable.TakeDamage(_damage, gameObject);
             }
             _pool.Release(this);
         }
