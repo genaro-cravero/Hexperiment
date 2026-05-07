@@ -24,9 +24,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //ToDo Check for healthManager
         if((_targetLayer.value & (1 << other.gameObject.layer)) != 0)
         {
+            if (other.TryGetComponent(out Health.IDamageable damageable))
+            {
+                damageable.TakeDamage(_damage, gameObject);
+            }
             _pool.Release(this);
         }
     }

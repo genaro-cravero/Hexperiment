@@ -198,6 +198,8 @@ GameObject:
   - component: {fileID: 6387326753322452126}
   - component: {fileID: 2335974769555397062}
   - component: {fileID: 6773176402966450584}
+  - component: {fileID: 6660831681044713762}
+  - component: {fileID: 6443284774779863048}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -359,6 +361,32 @@ MonoBehaviour:
   _shootLayer:
     serializedVersion: 2
     m_Bits: 136
+--- !u!114 &6660831681044713762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4208765883546247857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef4cd519e9c58047886ac2051df3aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health.HealthComponent
+  _characterData: {fileID: 11400000, guid: 6bef8f74191759b47b8bfd96931f36af, type: 2}
+  _healthBar: {fileID: 0}
+--- !u!114 &6443284774779863048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4208765883546247857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46bdb6ca4397bf549afcf37067a03865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerHealthReaction
 --- !u!1 &7537065846323805486
 GameObject:
   m_ObjectHideFlags: 0
