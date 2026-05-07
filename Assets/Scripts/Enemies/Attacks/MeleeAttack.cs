@@ -40,11 +40,10 @@ namespace Enemy
 
             if (hitCount > 0)
             {
-                //if (hits[0].TryGetComponent(out PlayerHealth playerHealth))
-                //{
-                //    playerHealth.TakeDamage(_damage);
-                //}
-                Debug.Log("Player hit by melee attack!");
+                if (hits[0].TryGetComponent(out Health.IDamageable damageable))
+                {
+                    damageable.TakeDamage(_damage);
+                }
             }
 
             yield return new WaitForSeconds(0.3f); //Simulate visual attack delay

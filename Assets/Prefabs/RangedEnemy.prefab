@@ -133,11 +133,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1100385372721989258}
   - component: {fileID: 9039680658145517797}
-  - component: {fileID: 3066454032932941183}
   - component: {fileID: 6895083326921403994}
+  - component: {fileID: 3066454032932941183}
   - component: {fileID: 6221327029590899608}
   - component: {fileID: 8335839486575170888}
   - component: {fileID: 8032005389448973781}
+  - component: {fileID: 4856555205975871051}
   m_Layer: 7
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -184,19 +185,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3066454032932941183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8071178969530955921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da3e2009b0aa8ac4d9644af23e88a091, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy.Enemy
-  _enemyData: {fileID: 11400000, guid: 0afe4ef32487e0b449cb497d0176de03, type: 2}
 --- !u!195 &6895083326921403994
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -219,6 +207,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3066454032932941183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8071178969530955921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3e2009b0aa8ac4d9644af23e88a091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.Enemy
+  _enemyData: {fileID: 11400000, guid: 0afe4ef32487e0b449cb497d0176de03, type: 2}
 --- !u!114 &6221327029590899608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +264,20 @@ MonoBehaviour:
   _shootLayer:
     serializedVersion: 2
     m_Bits: 72
+--- !u!114 &4856555205975871051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8071178969530955921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef4cd519e9c58047886ac2051df3aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health.HealthComponent
+  _characterData: {fileID: 11400000, guid: 0afe4ef32487e0b449cb497d0176de03, type: 2}
+  _healthBar: {fileID: 0}
 --- !u!1 &8914605348279556465
 GameObject:
   m_ObjectHideFlags: 0
