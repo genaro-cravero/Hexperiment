@@ -18,5 +18,5 @@ MonoBehaviour:
   gravity: -20
   gravityAcceleration: 10
   attackDamage: 1
-  attackCoolDown: 1.5
+  attackCoolDown: 0.75
   attackDistance: 10

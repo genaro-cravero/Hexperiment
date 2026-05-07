@@ -27,11 +27,11 @@ namespace Health
         {
             _currentHealth -= damage;
             OnDamage?.Invoke();
-            UpdateHealthBar();
             if (_currentHealth <= 0)
             {
                 Die();
             }
+            UpdateHealthBar();
         }
 
         private void Die()
