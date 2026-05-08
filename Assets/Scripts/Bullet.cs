@@ -5,8 +5,10 @@ using UnityEngine.Pool;
 public class Bullet : MonoBehaviour
 {
     //ToDO change this to a scriptable object 
-    [SerializeField] private float _speed = 20f;
-    [SerializeField] private float _lifeTime = 3f;
+    [SerializeField] private BulletData _bulletData;
+    private float _speed = 20f;
+    private float _lifeTime = 3f;
+
     private float _damage;
     private LayerMask _targetLayer;
     private IObjectPool<Bullet> _pool;
@@ -14,6 +16,9 @@ public class Bullet : MonoBehaviour
     public void Init(IObjectPool<Bullet> pool)
     {
         _pool = pool;
+        _speed = _bulletData.speed;
+        _lifeTime = _bulletData.lifeTime;
+
         StartCoroutine(ReturnAfterLifetime());
     }
 
