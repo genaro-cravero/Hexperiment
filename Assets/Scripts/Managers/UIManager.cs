@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,14 +7,19 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance;
+    public static UIManager Instance { get; private set; }
 
     [Header("Gameplay UI")]
-    [SerializeField] private GameObject _wavePanel;
     private CanvasGroup _waveCanvasGroup;
     [SerializeField] private TMP_Text _waveText;
 
+    [Header("Upgrade UI")]
+    [SerializeField] private Transform _buttonsContainer;
+    [SerializeField] private UpgradeButtonUI _upgradeButtonPrefab;
+
     [Header("Panels")]
+    [SerializeField] private GameObject _wavePanel;
+    [SerializeField] private GameObject _upgradePanel;
     [SerializeField] private GameObject _winPanel;
     [SerializeField] private GameObject _losePanel;
 
@@ -49,6 +55,32 @@ public class UIManager : MonoBehaviour
         _waveText.text = $"{wave}";
         _wavePanel.SetActive(true);
         StartCoroutine(ShowWavePanel());
+    }
+    public void ShowUpgradePanel(List<UpgradeData> upgrades)
+    {
+        foreach (Transform child in _buttonsContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (UpgradeData upgrade in upgrades)
+        {
+            UpgradeButtonUI button =
+                Instantiate(_upgradeButtonPrefab, _buttonsContainer);
+
+            button.Setup(upgrade);
+        }
+
+        _upgradePanel.SetActive(true);
+        Time.timeScale = 0f;
+        GameManager.Instance.SetCurrentState(GameState.Pause);
+    }
+
+    public void HideUpgradePanel()
+    {
+        _upgradePanel.SetActive(false);
+        Time.timeScale = 1f;
+        GameManager.Instance.SetCurrentState(GameState.Playing);
     }
 
     public void ShowWinScreen()

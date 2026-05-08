@@ -6,6 +6,7 @@ namespace Enemy
     public class MeleeAttack : MonoBehaviour, IEnemyAttack
     {
         [SerializeField] private LayerMask _playerLayer;
+        private float _attackRadius;
         private float _damage = 1f;
 
         private float _attackCooldown = 1f;
@@ -20,6 +21,7 @@ namespace Enemy
         {
             _initialized = true;
             _damage = context.enemyData.attackDamage;
+            _attackRadius = context.enemyData.attackDistance + 0.4f;
             _initialized = true;
         }
 
@@ -36,7 +38,7 @@ namespace Enemy
         private IEnumerator AttackCoroutine()
         {
             Collider[] hits = new Collider[1];
-            var hitCount = Physics.OverlapSphereNonAlloc(transform.position, 1f, hits, _playerLayer);
+            var hitCount = Physics.OverlapSphereNonAlloc(transform.position, _attackRadius, hits, _playerLayer);
 
             if (hitCount > 0)
             {

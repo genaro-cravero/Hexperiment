@@ -5,16 +5,19 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     private GameState _currentState;
+    public GameState CurrentState => _currentState;
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-        } else
+        }
+        else
         {
             Instance = this;
         }
+        _currentState = GameState.Playing;
     }
 
     public void WinGame()
@@ -33,6 +36,11 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.ShowLoseScreen();
 
         Time.timeScale = 0f;
+    }
+
+    public void SetCurrentState(GameState state)
+    { 
+        _currentState = state; 
     }
 }
 

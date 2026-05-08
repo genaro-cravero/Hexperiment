@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Health
 {
@@ -8,6 +9,7 @@ namespace Health
     {
         [SerializeField] private CharacterData _characterData;
         [SerializeField] private Slider _healthBar;
+        [SerializeField] private TextMeshProUGUI _healthText;
 
         private HealthManager _health;
 
@@ -27,12 +29,23 @@ namespace Health
 
         private void Awake()
         {
-            _health = new HealthManager(_characterData.initialHealth, _healthBar);
+            _health = new HealthManager(_characterData.initialHealth, _healthBar, _healthText);
         }
 
         public void TakeDamage(float damage, GameObject source)
         {
             _health.TakeDamage(damage, source);
+        }
+
+        public void IncreaseMaxHealth(float amount)
+        {
+            _health.IncreaseMaxHealth(amount);
+            Heal(amount);
+        }
+
+        public void Heal(float amount)
+        {
+            _health.Heal(amount);
         }
     }
 }

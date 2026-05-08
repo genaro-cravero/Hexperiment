@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   initialHealth: 3
   moveSpeed: 13
-  rotationSpeed: 0.5
+  rotationSpeed: 2
   gravity: -20
   gravityAcceleration: 10
   attackDamage: 1
