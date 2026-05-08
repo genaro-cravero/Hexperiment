@@ -582,6 +582,7 @@ MonoBehaviour:
   _shootLayer:
     serializedVersion: 2
     m_Bits: 72
+  _bulletData: {fileID: 11400000, guid: ceed19b4e66910443965393a61fd0492, type: 2}
 --- !u!114 &4856555205975871051
 MonoBehaviour:
   m_ObjectHideFlags: 0

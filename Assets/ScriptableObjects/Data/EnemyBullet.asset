@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemyBullet
   m_EditorClassIdentifier: Assembly-CSharp::BulletsData
   speed: 40
-  lifeTime: 3
+  lifeTime: 5

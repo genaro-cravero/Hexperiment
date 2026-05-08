@@ -32024,10 +32024,14 @@ MonoBehaviour:
   _waves:
   - meleeCount: 3
     rangedCount: 0
+  - meleeCount: 4
+    rangedCount: 1
   - meleeCount: 6
     rangedCount: 2
+  - meleeCount: 6
+    rangedCount: 4
   - meleeCount: 10
-    rangedCount: 5
+    rangedCount: 10
   _currentWave: 0
   _spawnPoints:
   - {fileID: 1410326451}
