@@ -108,6 +108,8 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator FadeInWavePanel(bool firstTime = false)
     {
+        GameManager.Instance.SetCurrentState(GameState.Waving);
+
         _wavePanel.SetActive(true);
         if (!firstTime)
         {
@@ -137,5 +139,6 @@ public class UIManager : MonoBehaviour
         }
         _wavePanel.SetActive(false);
         _waveText.gameObject.SetActive(false);
+        GameManager.Instance.SetCurrentState(GameState.Playing);
     }
 }

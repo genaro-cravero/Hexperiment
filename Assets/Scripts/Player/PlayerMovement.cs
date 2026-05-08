@@ -35,6 +35,9 @@ namespace Player
 
         private void Update()
         {
+            if(GameManager.Instance.CurrentState != GameState.Playing)
+                return;
+
             float x = _inputController.moveInput.x;
             float z = _inputController.moveInput.y;
 

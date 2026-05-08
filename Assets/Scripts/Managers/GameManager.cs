@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 
     private GameState _currentState;
     public GameState CurrentState => _currentState;
-
+    public bool IsGameplayActive => _currentState is GameState.Playing || _currentState is GameState.Waving;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -17,12 +17,13 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
-        _currentState = GameState.Playing;
+        Cursor.lockState = CursorLockMode.Confined;
+        SetCurrentState(GameState.Playing);
     }
 
     public void WinGame()
     {
-        _currentState = GameState.Win;
+        SetCurrentState(GameState.Win);
 
         UIManager.Instance.ShowWinScreen();
 
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public void LoseGame()
     {
-        _currentState = GameState.Lose;
+        SetCurrentState(GameState.Lose);
 
         UIManager.Instance.ShowLoseScreen();
 
@@ -40,7 +41,8 @@ public class GameManager : MonoBehaviour
 
     public void SetCurrentState(GameState state)
     { 
-        _currentState = state; 
+        _currentState = state;
+        Cursor.visible = !IsGameplayActive;
     }
 }
 
@@ -49,5 +51,6 @@ public enum GameState
     Playing,
     Win,
     Lose,
-    Pause
+    Pause,
+    Waving
 }
