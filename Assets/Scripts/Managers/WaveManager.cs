@@ -27,6 +27,12 @@ public class WaveManager : MonoBehaviour
     private IEnumerator StartWave()
     {
         yield return new WaitForSeconds(_timeBetweenWaves);
+
+        UIManager.Instance.UpdateWaveText(_currentWave + 1);
+        yield return null;
+        yield return new WaitUntil(() => !UIManager.Instance.IsWavePanelActive);
+
+        yield return new WaitForSeconds(_timeBetweenWaves);
         
         var currentWave = _waves[_currentWave];
         int meleeCount = currentWave.meleeCount;

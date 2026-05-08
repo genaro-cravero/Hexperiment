@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     {
         _currentState = GameState.Win;
 
-        //UIManager.Instance.ShowWinScreen();
+        UIManager.Instance.ShowWinScreen();
 
         Time.timeScale = 0f;
     }
@@ -30,8 +30,7 @@ public class GameManager : MonoBehaviour
     {
         _currentState = GameState.Lose;
 
-        //ToDo UIManager
-        //UIManager.Instance.ShowLoseScreen();
+        UIManager.Instance.ShowLoseScreen();
 
         Time.timeScale = 0f;
     }
