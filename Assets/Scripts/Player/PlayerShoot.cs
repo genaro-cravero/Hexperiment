@@ -63,6 +63,7 @@ namespace Player
 
         void Update()
         {
+            if(GameManager.Instance.CurrentState != GameState.Playing) return;
             if (!_isShooting && _justEndedShooting)
             {
                 if (_smoothRotating) return;
