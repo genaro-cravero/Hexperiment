@@ -2,6 +2,7 @@ using Health;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Player;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class UpgradeManager : MonoBehaviour
                 break;
 
             case UpgradeType.Damage:
-                _playerStats.IncreaseDamage((int)upgrade.value);
+                _playerStats.IncreaseDamage(upgrade.value);
                 break;
 
             case UpgradeType.MaxHealth:

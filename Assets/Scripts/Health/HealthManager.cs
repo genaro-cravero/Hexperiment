@@ -54,6 +54,11 @@ namespace Health
                 _currentHealth = _maxHealth;
             UpdateHealthBar();
         }
+        public void IncreaseMaxHealth(float amount)
+        {
+            _maxHealth += amount;
+            UpdateHealthBar();
+        }
 
         private void Die()
         {

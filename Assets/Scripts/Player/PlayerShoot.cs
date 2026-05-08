@@ -12,15 +12,14 @@ namespace Player
         [SerializeField, Range(0.1f, 20f)] private float _smoothRotationVelocity = 5f;
 
         [Header("Shooting Settings")]
-        [SerializeField] private CharacterData _playerData;
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private LayerMask _shootLayer;
-        private float _fireRate;
         private IObjectPool<Bullet> _bulletPool;
 
         private DetectCollision _detectCollision;
         private PlayerInputController _inputController;
+        private PlayerStats _playerStats;
 
         private bool _isShooting;
         private bool _justEndedShooting;
@@ -34,20 +33,22 @@ namespace Player
         {
             _inputController = GetComponent<PlayerInputController>();
             _detectCollision = GetComponent<DetectCollision>();
+            _playerStats = GetComponent<PlayerStats>();
+
             _camera = Camera.main;
 
             _bulletPool = new ObjectPool<Bullet>(
                 createFunc: () => Instantiate(_bulletPrefab),
                 actionOnGet: bullet =>
                 {
-                    bullet.SetParameters(_shootLayer, _playerData.attackDamage);
+                    bullet.SetParameters(_shootLayer, _playerStats.damage);
                     bullet.gameObject.SetActive(true);
                 },
                 actionOnRelease: bullet => bullet.gameObject.SetActive(false),
                 actionOnDestroy: bullet => Destroy(bullet.gameObject),
                 maxSize: 20
             );
-            _fireRate = _playerData.attackCoolDown;
+
         }
 
         private void OnEnable()
@@ -63,7 +64,7 @@ namespace Player
 
         void Update()
         {
-            if(GameManager.Instance.CurrentState != GameState.Playing) return;
+            if (GameManager.Instance.CurrentState != GameState.Playing) return;
             if (!_isShooting && _justEndedShooting)
             {
                 if (_smoothRotating) return;
@@ -114,7 +115,7 @@ namespace Player
         private IEnumerator ShootCoroutine()
         {
             _isShooting = true;
-            while (_isShooting)//ToDo Check if player alive?
+            while (_isShooting)
             {
                 if (_smoothRotating)
                     yield return new WaitUntil(() => !_smoothRotating);
@@ -127,10 +128,10 @@ namespace Player
                 bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
                 bullet.Init(_bulletPool);
 
-                _nextFireTime = Time.time + _fireRate;
+                _nextFireTime = Time.time + _playerStats.fireCooldown;
 
                 yield return null;
-                yield return new WaitForSeconds(_fireRate);
+                yield return new WaitForSeconds(_playerStats.fireCooldown);
 
             }
 

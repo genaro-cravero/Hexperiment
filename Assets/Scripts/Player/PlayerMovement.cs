@@ -8,13 +8,12 @@ namespace Player
     public class PlayerMovement : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private CharacterData _playerData;
         private PlayerInputController _inputController;
         private CharacterController _controller;
         private DetectCollision _detectCollision;
+        private PlayerStats _playerStats;
 
         [Header("Movement Values")]
-        private float _moveSpeed;
         private Vector3 _velocity;
         private float _gravitySpeed;
         private float _gravityAcceleration;
@@ -25,10 +24,13 @@ namespace Player
             _inputController = GetComponent<PlayerInputController>();
             _detectCollision = GetComponent<DetectCollision>();
             _controller = GetComponent<CharacterController>();
+            _playerStats = GetComponent<PlayerStats>();
+        }
 
-            _moveSpeed = _playerData.moveSpeed;
-            _gravitySpeed = _playerData.gravity;
-            _gravityAcceleration = _playerData.gravityAcceleration;
+        private void Start()
+        {
+            _gravitySpeed = _playerStats.gravity;
+            _gravityAcceleration = _playerStats.gravityAcceleration;
         }
 
         private void Update()
@@ -37,7 +39,7 @@ namespace Player
             float z = _inputController.moveInput.y;
 
             Vector3 move = transform.right * x + transform.forward * z;
-            _controller.Move(move * _moveSpeed * Time.deltaTime);
+            _controller.Move(move * _playerStats.moveSpeed * Time.deltaTime);
 
             CalculateGravity();
         }

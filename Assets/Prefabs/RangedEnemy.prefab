@@ -596,6 +596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health.HealthComponent
   _characterData: {fileID: 11400000, guid: 0afe4ef32487e0b449cb497d0176de03, type: 2}
   _healthBar: {fileID: 1006775747527505203}
+  _healthText: {fileID: 0}
 --- !u!114 &442264432432383749
 MonoBehaviour:
   m_ObjectHideFlags: 0

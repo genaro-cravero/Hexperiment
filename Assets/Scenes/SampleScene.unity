@@ -32109,14 +32109,22 @@ MonoBehaviour:
     type: 0
     value: 25
     rarity: 2
+  - upgradeName: +30% Fire Rate
+    type: 0
+    value: 30
+    rarity: 3
+  - upgradeName: +0.5 Damage
+    type: 1
+    value: 0.5
+    rarity: 0
   - upgradeName: +1 Damage
     type: 1
     value: 1
-    rarity: 0
+    rarity: 2
   - upgradeName: +2 Damage
     type: 1
     value: 2
-    rarity: 2
+    rarity: 3
   - upgradeName: +3 Damage
     type: 1
     value: 3
@@ -39565,6 +39573,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6371279195250182965, guid: a225128a8be13e847a6d9e223a662048, type: 3}
+      propertyPath: _playerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 6bef8f74191759b47b8bfd96931f36af, type: 2}
     - target: {fileID: 6660831681044713762, guid: a225128a8be13e847a6d9e223a662048, type: 3}
       propertyPath: _healthBar
       value: 

@@ -37,6 +37,12 @@ namespace Health
             _health.TakeDamage(damage, source);
         }
 
+        public void IncreaseMaxHealth(float amount)
+        {
+            _health.IncreaseMaxHealth(amount);
+            Heal(amount);
+        }
+
         public void Heal(float amount)
         {
             _health.Heal(amount);
