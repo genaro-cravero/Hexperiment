@@ -27,11 +27,7 @@ public class WaveManager : MonoBehaviour
     private IEnumerator StartWave()
     {
         yield return new WaitForSeconds(_timeBetweenWaves);
-        if(_currentWave >=  _waves.Length)
-        {
-            //ToDo Winning condition
-            yield break;
-        }
+        
         var currentWave = _waves[_currentWave];
         int meleeCount = currentWave.meleeCount;
         int rangedCount = currentWave.rangedCount;
@@ -69,6 +65,11 @@ public class WaveManager : MonoBehaviour
         if (_enemiesAlive <= 0)
         {
             _currentWave++;
+            if (_currentWave >= _waves.Length)
+            {
+                GameManager.Instance.WinGame();
+                return;
+            }
             StartCoroutine(StartWave());
         }
     }
