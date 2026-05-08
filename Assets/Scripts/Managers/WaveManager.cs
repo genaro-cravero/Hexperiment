@@ -36,6 +36,7 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
+        UIManager.Instance.ShowWavePanel(_currentWave + 1, true);
         StartCoroutine(StartWave());
     }
 
@@ -44,9 +45,9 @@ public class WaveManager : MonoBehaviour
         if(_currentWave > 0)
         {
             yield return new WaitForSeconds(_timeBetweenWaves);
+            UIManager.Instance.ShowWavePanel(_currentWave + 1);
         }
 
-        UIManager.Instance.UpdateWaveText(_currentWave + 1);
         yield return null;
         yield return new WaitUntil(() => !UIManager.Instance.IsWavePanelActive);
 
