@@ -34,7 +34,7 @@ namespace Player
 
         private void HandleDie()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            GameManager.Instance.LoseGame();
         }
     }
 }
