@@ -2,19 +2,21 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float fireRate = 1f;
-    public int damage = 10;
-    public int maxHealth = 100;
+    [HideInInspector] public float moveSpeed;
+    [HideInInspector] public float fireRate;
+    [HideInInspector] public int damage;
+    [HideInInspector] public int maxHealth;
 
-    public void IncreaseMoveSpeed(float amount)
+    public void IncreaseMoveSpeed(float perc)
     {
-        moveSpeed += amount;
+        var multiplier = 1 + (perc / 100f);
+        moveSpeed *= multiplier;
     }
 
-    public void IncreaseFireRate(float amount)
+    public void IncreaseFireRate(float perc)
     {
-        fireRate += amount;
+        var multiplier = 1 + (perc / 100f);
+        fireRate *= multiplier;
     }
 
     public void IncreaseDamage(int amount)

@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-        } else
+        }
+        else
         {
             Instance = this;
         }
@@ -35,6 +36,11 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.ShowLoseScreen();
 
         Time.timeScale = 0f;
+    }
+
+    public void SetCurrentState(GameState state)
+    { 
+        _currentState = state; 
     }
 }
 

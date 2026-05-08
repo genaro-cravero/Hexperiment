@@ -1,9 +1,12 @@
 using Health;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    public static WaveManager Instance { get; private set; }
+
     [Header("Wave")]
     [SerializeField] private Wave[] _waves;
     [SerializeField] private int _currentWave = 0;
@@ -19,6 +22,18 @@ public class WaveManager : MonoBehaviour
 
     private int _enemiesAlive;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     private void Start()
     {
         StartCoroutine(StartWave());
@@ -26,7 +41,10 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator StartWave()
     {
-        yield return new WaitForSeconds(_timeBetweenWaves);
+        if(_currentWave > 0)
+        {
+            yield return new WaitForSeconds(_timeBetweenWaves);
+        }
 
         UIManager.Instance.UpdateWaveText(_currentWave + 1);
         yield return null;
@@ -76,8 +94,14 @@ public class WaveManager : MonoBehaviour
                 GameManager.Instance.WinGame();
                 return;
             }
-            StartCoroutine(StartWave());
+            List<UpgradeData> randomUpgrades = UpgradeManager.Instance.GetRandomUpgrades(3);
+            UIManager.Instance.ShowUpgradePanel(randomUpgrades);
         }
+    }
+
+    public void StartNextWave()
+    {
+        StartCoroutine(StartWave());
     }
 }
 

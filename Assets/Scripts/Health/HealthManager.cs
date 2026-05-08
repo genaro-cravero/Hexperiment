@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Health
 {
@@ -9,6 +10,7 @@ namespace Health
         private float _currentHealth;
         private float _maxHealth;
         private Slider _healthBar;
+        private TextMeshProUGUI _healthText;
 
         public bool IsAlive { get; private set; }
 
@@ -21,6 +23,14 @@ namespace Health
             _maxHealth = maxHealth;
             _currentHealth = maxHealth;
             _healthBar = healthBar;
+        }
+        public HealthManager(float maxHealth, Slider healthBar, TextMeshProUGUI healthText)
+        {
+            IsAlive = true;
+            _maxHealth = maxHealth;
+            _currentHealth = maxHealth;
+            _healthBar = healthBar;
+            _healthText = healthText;
         }
 
         public void TakeDamage(float damage, GameObject source)
@@ -36,6 +46,15 @@ namespace Health
             UpdateHealthBar();
         }
 
+        public void Heal(float amount)
+        {
+            if (!IsAlive) return;
+            _currentHealth += amount;
+            if (_currentHealth > _maxHealth)
+                _currentHealth = _maxHealth;
+            UpdateHealthBar();
+        }
+
         private void Die()
         {
             IsAlive = false;
@@ -46,6 +65,8 @@ namespace Health
         {
             if (_healthBar)
             {
+                if(_healthText)
+                    _healthText.text = $"{_currentHealth} / {_maxHealth}";
                 if(IsAlive)
                 {
                     if(!_healthBar.gameObject.activeSelf)
