@@ -29,8 +29,9 @@ namespace Enemy
         private Vector3 _lastPlayerPosition;
         private Vector3 _playerVelocity;
         private float _lastVelocityTime;
-        private float _predictionAccuracy = 0.75f; //ToDo Update with every wave or make more accurate enemies
 
+        private const float PREDICTION_BASE = 0.75f;
+        private float _predictionAccuracy;
         public void Initialize(EnemyContext context)
         {
             _fireRate = context.enemyData.attackCoolDown;
@@ -51,6 +52,7 @@ namespace Enemy
                 collectionCheck: false,
                 maxSize: 20
             );
+            _predictionAccuracy = Mathf.Lerp(PREDICTION_BASE, 1f, WaveManager.Instance.TotalWavesProgress);
             _initialized = true;
         }
         public void Attack()

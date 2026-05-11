@@ -21,6 +21,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float _spawnDelay = 0.5f;
 
     private int _enemiesAlive;
+    //public float WaveProgress => _enemiesAlive > 0 ? 1f - (float)_enemiesAlive / GetTotalEnemiesInCurrentWave() : 1f;
+    public float TotalWavesProgress => (float)_currentWave / (_waves.Length - 1);
 
     private void Awake()
     {
