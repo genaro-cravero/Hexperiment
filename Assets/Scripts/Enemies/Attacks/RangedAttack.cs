@@ -91,8 +91,10 @@ namespace Enemy
                 targetDirection.y = 0f;
                 targetRotation = Quaternion.LookRotation(targetDirection);
 
-                transform.rotation = Quaternion.RotateTowards(transform.rotation,
-                    targetRotation, _data.moveSpeed);
+                transform.rotation = Quaternion.RotateTowards(
+                    transform.rotation,
+                    targetRotation,
+                    _data.rotationSpeed * 360f * Time.deltaTime);
                 yield return null;
             }
         }
