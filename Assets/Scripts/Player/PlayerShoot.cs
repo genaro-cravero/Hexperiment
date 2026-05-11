@@ -41,7 +41,7 @@ namespace Player
                 createFunc: () => Instantiate(_bulletPrefab),
                 actionOnGet: bullet =>
                 {
-                    bullet.SetParameters(_shootLayer, _playerStats.damage);
+                    bullet.SetParameters(_shootLayer, _playerStats.damage, true);
                     bullet.gameObject.SetActive(true);
                 },
                 actionOnRelease: bullet => bullet.gameObject.SetActive(false),

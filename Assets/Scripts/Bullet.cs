@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
     private float _damage;
     private LayerMask _targetLayer;
     private IObjectPool<Bullet> _pool;
+    private bool _push = false;
 
     public void Init(IObjectPool<Bullet> pool)
     {
@@ -33,7 +34,7 @@ public class Bullet : MonoBehaviour
         {
             if (other.TryGetComponent(out Health.IDamageable damageable))
             {
-                damageable.TakeDamage(_damage, gameObject);
+                damageable.TakeDamage(_damage, gameObject, _push);
             }
             _pool.Release(this);
         }
@@ -45,9 +46,10 @@ public class Bullet : MonoBehaviour
         _pool.Release(this);
     }
 
-    public void SetParameters(LayerMask mask, float damage)
+    public void SetParameters(LayerMask mask, float damage, bool push)
     {
         _targetLayer = mask;
         _damage = damage;
+        _push = push;
     }
 }

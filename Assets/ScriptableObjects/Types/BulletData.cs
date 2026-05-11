@@ -4,5 +4,5 @@ using UnityEngine;
 public class BulletData : ScriptableObject
 {
     [Range(0, 100)] public float speed = 20f;
-    [Range(0,10)] public float lifeTime = 3f;
+    [Range(0,60)] public float lifeTime = 3f;
 }

@@ -29189,14 +29189,22 @@ MonoBehaviour:
   _waves:
   - meleeCount: 3
     rangedCount: 0
+    addBoss: 0
   - meleeCount: 4
     rangedCount: 1
+    addBoss: 0
   - meleeCount: 6
     rangedCount: 2
+    addBoss: 0
   - meleeCount: 6
     rangedCount: 4
+    addBoss: 0
   - meleeCount: 10
     rangedCount: 10
+    addBoss: 0
+  - meleeCount: 0
+    rangedCount: 0
+    addBoss: 1
   _currentWave: 0
   _spawnPoints:
   - {fileID: 1410326451}
@@ -29205,6 +29213,7 @@ MonoBehaviour:
   - {fileID: 514074753}
   _meleeEnemyPrefab: {fileID: 774442822616403455, guid: 7718f5828c2209341b9b9cb9fd5f083c, type: 3}
   _rangedEnemyPrefab: {fileID: 8071178969530955921, guid: 0d7f14f05911cba4b8bb3a19219bc093, type: 3}
+  _bossPrefab: {fileID: 4765771604093674655, guid: 7f0be445fe98d1849b5d94f35c03ab03, type: 3}
   _timeBetweenWaves: 3
   _spawnDelay: 0.5
 --- !u!4 &1800412573

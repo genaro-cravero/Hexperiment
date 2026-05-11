@@ -44,7 +44,7 @@ namespace Enemy
                 createFunc: () => Instantiate(_bulletPrefab),
                 actionOnGet: bullet =>
                 {
-                    bullet.SetParameters(_shootLayer, _damage);
+                    bullet.SetParameters(_shootLayer, _damage, false);
                     bullet.gameObject.SetActive(true);
                 },
                 actionOnRelease: bullet => bullet.gameObject.SetActive(false),

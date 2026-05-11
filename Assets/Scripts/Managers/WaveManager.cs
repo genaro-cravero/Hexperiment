@@ -15,6 +15,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private GameObject _meleeEnemyPrefab;
     [SerializeField] private GameObject _rangedEnemyPrefab;
+    [SerializeField] private GameObject _bossPrefab;
 
     [Header("Timing")]
     [SerializeField] private float _timeBetweenWaves = 3f;
@@ -58,8 +59,10 @@ public class WaveManager : MonoBehaviour
         var currentWave = _waves[_currentWave];
         int meleeCount = currentWave.meleeCount;
         int rangedCount = currentWave.rangedCount;
+        bool addBoss = currentWave.addBoss;
 
         _enemiesAlive = meleeCount + rangedCount;
+        _enemiesAlive += addBoss ? 1 : 0;
 
         for (int i = 0; i < meleeCount; i++)
         {
@@ -71,6 +74,11 @@ public class WaveManager : MonoBehaviour
         {
             SpawnEnemy(_rangedEnemyPrefab);
             yield return new WaitForSeconds(_spawnDelay);
+        }
+
+        if(addBoss)
+        {
+            SpawnEnemy(_bossPrefab);
         }
     }
 
@@ -113,4 +121,5 @@ public struct Wave
 {
     public int meleeCount;
     public int rangedCount;
+    public bool addBoss;
 }

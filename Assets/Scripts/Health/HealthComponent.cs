@@ -27,14 +27,20 @@ namespace Health
             remove => _health.OnDie -= value;
         }
 
+        public event Action <float, GameObject> OnPush
+        {
+            add => _health.OnPush += value;
+            remove => _health.OnPush -= value;
+        }
+
         private void Awake()
         {
             _health = new HealthManager(_characterData.initialHealth, _healthBar, _healthText);
         }
 
-        public void TakeDamage(float damage, GameObject source)
+        public void TakeDamage(float damage, GameObject source, bool push = false)
         {
-            _health.TakeDamage(damage, source);
+            _health.TakeDamage(damage, source, push);
         }
 
         public void IncreaseMaxHealth(float amount)
