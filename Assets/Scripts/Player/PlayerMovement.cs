@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Player
@@ -12,12 +13,18 @@ namespace Player
         private CharacterController _controller;
         private DetectCollision _detectCollision;
         private PlayerStats _playerStats;
+        private Coroutine _knockbackCoroutine;
+        private bool _isKnockedBack;
 
         [Header("Movement Values")]
         private Vector3 _velocity;
         private float _gravitySpeed;
         private float _gravityAcceleration;
         private float _currentGravitySpeed = 1;
+
+        [Header("Knockback")]
+        [SerializeField] private float _knockbackBaseForce = 6f;
+        [SerializeField] private float _knockbackDuration = 0.3f;
 
         private void Awake()
         {
@@ -35,6 +42,15 @@ namespace Player
 
         private void Update()
         {
+            if(GameManager.Instance.CurrentState != GameState.Playing)
+                return;
+
+            if (_isKnockedBack)
+            {
+                CalculateGravity();
+                return;
+            }
+
             float x = _inputController.moveInput.x;
             float z = _inputController.moveInput.y;
 
@@ -42,6 +58,14 @@ namespace Player
             _controller.Move(move * _playerStats.moveSpeed * Time.deltaTime);
 
             CalculateGravity();
+        }
+
+        public void Knockback(Vector3 direction, float forceMultiplier)
+        {
+            if (_knockbackCoroutine != null)
+                StopCoroutine(_knockbackCoroutine);
+
+            _knockbackCoroutine = StartCoroutine(KnockbackCoroutine(direction, forceMultiplier));
         }
         private void CalculateGravity()
         {
@@ -54,6 +78,34 @@ namespace Player
             _currentGravitySpeed += _gravityAcceleration * Time.deltaTime;
             _velocity.y += _gravitySpeed * _currentGravitySpeed * Time.deltaTime;
             _controller.Move(_velocity * Time.deltaTime);
+        }
+
+        private IEnumerator KnockbackCoroutine(Vector3 direction, float forceMultiplier)
+        {
+            direction.y = 0f;
+            if (direction.sqrMagnitude < 0.001f)
+            {
+                _isKnockedBack = false;
+                yield break;
+            }
+
+            Vector3 pushDirection = direction.normalized;
+            float x = _inputController.moveInput.x;
+            float z = _inputController.moveInput.y;
+            Vector3 inputMove = transform.right * x + transform.forward * z;
+            
+            _isKnockedBack = !(inputMove.sqrMagnitude > 0.001f && Vector3.Dot(inputMove.normalized, pushDirection) > 0f);
+            
+            float elapsed = 0f;
+            var force = _knockbackBaseForce * forceMultiplier;
+            while (elapsed < _knockbackDuration)
+            {
+                _controller.Move(pushDirection * force * Time.deltaTime);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            _isKnockedBack = false;
         }
     }
 

@@ -13,6 +13,8 @@ namespace Enemy
         private EnemyCombat _enemyCombat => _enemy.Context.enemyCombat;
         private Coroutine _pushCoroutine;
         private bool _isbeingPushed;
+        [SerializeField] private bool _canBePushed = true;
+        private const float STOP_DISTANCE_DIFF = 0.5f;
         void Awake()
         {
             _enemy = GetComponent<Enemy>();
@@ -23,7 +25,7 @@ namespace Enemy
         {
             _agent.speed = _data.moveSpeed;
             _agent.angularSpeed = _data.rotationSpeed * 360;
-            _agent.stoppingDistance = _data.attackDistance;
+            _agent.stoppingDistance = _data.attackDistance - STOP_DISTANCE_DIFF;
             _agent.acceleration = _agent.angularSpeed / 2;
         }
 
@@ -38,6 +40,15 @@ namespace Enemy
             {
                 _agent.SetDestination(targetPosition);
             }
+        }
+
+        public void ForceMoveTo(Vector3 targetPosition)
+        {
+            if (_isbeingPushed) return;
+            if (_agent.isStopped)
+                _agent.isStopped = false;
+
+            _agent.SetDestination(targetPosition);
         }
 
         public void Stop()
@@ -72,6 +83,7 @@ namespace Enemy
         private const float PUSHBACK_DURATION = 0.1f;
         private IEnumerator PushBackCoroutine(Vector3 direction, float damage)
         {
+            if (!_canBePushed) yield break;
             _isbeingPushed = true;
             _agent.isStopped = true;
             _agent.ResetPath();
@@ -105,6 +117,11 @@ namespace Enemy
             _isbeingPushed = false;
             _agent.isStopped = false;
             _pushCoroutine = null;
+        }
+
+        public void SetStoppingDistance(float dist)
+        {
+            _agent.stoppingDistance = dist - STOP_DISTANCE_DIFF;
         }
     }
 }

@@ -25,9 +25,10 @@ public class UIManager : MonoBehaviour
 
     public bool IsWavePanelActive => _wavePanel.activeSelf;
 
-    [Header ("Wave Panel Times")]
+    [Header("Wave Panel Times")]
     private const float WAVE_FADE_TIME = 0.5f;
     private const float WAVE_PANEL_TIME = 2f;
+    private const float WAVE_FULLBLACK_TIME = 1.3f;
 
     private void Awake()
     {
@@ -50,11 +51,11 @@ public class UIManager : MonoBehaviour
         _waveText.gameObject.SetActive(false);
     }
 
-    public void UpdateWaveText(int wave)
+    public void ShowWavePanel(int wave, bool firstTime = false)
     {
         _waveText.text = $"{wave}";
         _wavePanel.SetActive(true);
-        StartCoroutine(ShowWavePanel());
+        StartCoroutine(FadeInWavePanel(firstTime));
     }
     public void ShowUpgradePanel(List<UpgradeData> upgrades)
     {
@@ -105,17 +106,23 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    private IEnumerator ShowWavePanel()
+    private IEnumerator FadeInWavePanel(bool firstTime = false)
     {
+        GameManager.Instance.SetCurrentState(GameState.Waving);
+
         _wavePanel.SetActive(true);
-        var alpha = 0f;
-        while (_waveCanvasGroup.alpha < 1f)
+        if (!firstTime)
         {
-            alpha += Time.deltaTime / WAVE_FADE_TIME;
-            _waveCanvasGroup.alpha = Mathf.Clamp01(alpha);
-            yield return null;
+            var alpha = 0f;
+            while (_waveCanvasGroup.alpha < 1f)
+            {
+                alpha += Time.deltaTime / WAVE_FADE_TIME;
+                _waveCanvasGroup.alpha = Mathf.Clamp01(alpha);
+                yield return null;
+            }
         }
-        yield return new WaitForSeconds(WAVE_FADE_TIME);
+        _waveCanvasGroup.alpha = 1f;
+        yield return new WaitForSeconds(WAVE_FULLBLACK_TIME);
         _waveText.gameObject.SetActive(true);
         StartCoroutine(HideWavePanel());
     }
@@ -132,5 +139,6 @@ public class UIManager : MonoBehaviour
         }
         _wavePanel.SetActive(false);
         _waveText.gameObject.SetActive(false);
+        GameManager.Instance.SetCurrentState(GameState.Playing);
     }
 }

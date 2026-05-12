@@ -15,12 +15,15 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private GameObject _meleeEnemyPrefab;
     [SerializeField] private GameObject _rangedEnemyPrefab;
+    [SerializeField] private GameObject _bossPrefab;
 
     [Header("Timing")]
     [SerializeField] private float _timeBetweenWaves = 3f;
     [SerializeField] private float _spawnDelay = 0.5f;
 
     private int _enemiesAlive;
+    //public float WaveProgress => _enemiesAlive > 0 ? 1f - (float)_enemiesAlive / GetTotalEnemiesInCurrentWave() : 1f;
+    public float TotalWavesProgress => (float)_currentWave / (_waves.Length - 1);
 
     private void Awake()
     {
@@ -36,6 +39,7 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
+        UIManager.Instance.ShowWavePanel(_currentWave + 1, true);
         StartCoroutine(StartWave());
     }
 
@@ -44,9 +48,9 @@ public class WaveManager : MonoBehaviour
         if(_currentWave > 0)
         {
             yield return new WaitForSeconds(_timeBetweenWaves);
+            UIManager.Instance.ShowWavePanel(_currentWave + 1);
         }
 
-        UIManager.Instance.UpdateWaveText(_currentWave + 1);
         yield return null;
         yield return new WaitUntil(() => !UIManager.Instance.IsWavePanelActive);
 
@@ -55,8 +59,10 @@ public class WaveManager : MonoBehaviour
         var currentWave = _waves[_currentWave];
         int meleeCount = currentWave.meleeCount;
         int rangedCount = currentWave.rangedCount;
+        bool addBoss = currentWave.addBoss;
 
         _enemiesAlive = meleeCount + rangedCount;
+        _enemiesAlive += addBoss ? 1 : 0;
 
         for (int i = 0; i < meleeCount; i++)
         {
@@ -68,6 +74,11 @@ public class WaveManager : MonoBehaviour
         {
             SpawnEnemy(_rangedEnemyPrefab);
             yield return new WaitForSeconds(_spawnDelay);
+        }
+
+        if(addBoss)
+        {
+            SpawnEnemy(_bossPrefab);
         }
     }
 
@@ -110,4 +121,5 @@ public struct Wave
 {
     public int meleeCount;
     public int rangedCount;
+    public bool addBoss;
 }

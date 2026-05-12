@@ -15,6 +15,7 @@ namespace Health
         public bool IsAlive { get; private set; }
 
         public Action<float, GameObject> OnDamage;
+        public Action<float, GameObject> OnPush;
         public Action OnDie;
 
         public HealthManager(float maxHealth, Slider healthBar)
@@ -33,7 +34,7 @@ namespace Health
             _healthText = healthText;
         }
 
-        public void TakeDamage(float damage, GameObject source)
+        public void TakeDamage(float damage, GameObject source, bool push)
         {
             _currentHealth -= damage;
             if (_currentHealth <= 0)
@@ -43,6 +44,10 @@ namespace Health
                 return;
             }
             OnDamage?.Invoke(damage, source);
+            if(push)
+            {
+                OnPush?.Invoke(damage, source);
+            }
             UpdateHealthBar();
         }
 
@@ -71,7 +76,7 @@ namespace Health
             if (_healthBar)
             {
                 if(_healthText)
-                    _healthText.text = $"{_currentHealth} / {_maxHealth}";
+                    _healthText.text = $"{_currentHealth:0.##} / {_maxHealth:0.##}";
                 if(IsAlive)
                 {
                     if(!_healthBar.gameObject.activeSelf)
