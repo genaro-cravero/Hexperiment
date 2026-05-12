@@ -29319,17 +29319,21 @@ MonoBehaviour:
     type: 2
     value: 15
     rarity: 3
-  - upgradeName: +5% Move Speed
-    type: 3
-    value: 5
-    rarity: 0
   - upgradeName: +10% Move Speed
     type: 3
     value: 10
-    rarity: 1
+    rarity: 0
   - upgradeName: +15% Move Speed
     type: 3
     value: 15
+    rarity: 1
+  - upgradeName: +20% Move Speed
+    type: 3
+    value: 20
+    rarity: 2
+  - upgradeName: +50% Move Speed
+    type: 3
+    value: 50
     rarity: 2
   - upgradeName: Heal 10 points
     type: 3

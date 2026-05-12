@@ -14,7 +14,7 @@ namespace Enemy
         private Coroutine _pushCoroutine;
         private bool _isbeingPushed;
         [SerializeField] private bool _canBePushed = true;
-        private const float STOP_DISTANCE_DIFF = 0.3f;
+        private const float STOP_DISTANCE_DIFF = 0.5f;
         void Awake()
         {
             _enemy = GetComponent<Enemy>();
