@@ -14,6 +14,7 @@ namespace Enemy
         private Coroutine _pushCoroutine;
         private bool _isbeingPushed;
         [SerializeField] private bool _canBePushed = true;
+        private const float STOP_DISTANCE_DIFF = 0.3f;
         void Awake()
         {
             _enemy = GetComponent<Enemy>();
@@ -24,7 +25,7 @@ namespace Enemy
         {
             _agent.speed = _data.moveSpeed;
             _agent.angularSpeed = _data.rotationSpeed * 360;
-            _agent.stoppingDistance = _data.attackDistance;
+            _agent.stoppingDistance = _data.attackDistance - STOP_DISTANCE_DIFF;
             _agent.acceleration = _agent.angularSpeed / 2;
         }
 
@@ -120,7 +121,7 @@ namespace Enemy
 
         public void SetStoppingDistance(float dist)
         {
-            _agent.stoppingDistance = dist;
+            _agent.stoppingDistance = dist - STOP_DISTANCE_DIFF;
         }
     }
 }

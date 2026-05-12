@@ -82,8 +82,6 @@ namespace Player
 
         private IEnumerator KnockbackCoroutine(Vector3 direction, float forceMultiplier)
         {
-            _isKnockedBack = true;
-
             direction.y = 0f;
             if (direction.sqrMagnitude < 0.001f)
             {
@@ -92,6 +90,12 @@ namespace Player
             }
 
             Vector3 pushDirection = direction.normalized;
+            float x = _inputController.moveInput.x;
+            float z = _inputController.moveInput.y;
+            Vector3 inputMove = transform.right * x + transform.forward * z;
+            
+            _isKnockedBack = !(inputMove.sqrMagnitude > 0.001f && Vector3.Dot(inputMove.normalized, pushDirection) > 0f);
+            
             float elapsed = 0f;
             var force = _knockbackBaseForce * forceMultiplier;
             while (elapsed < _knockbackDuration)
