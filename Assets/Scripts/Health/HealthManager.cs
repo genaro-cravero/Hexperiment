@@ -76,7 +76,7 @@ namespace Health
             if (_healthBar)
             {
                 if(_healthText)
-                    _healthText.text = $"{_currentHealth} / {_maxHealth}";
+                    _healthText.text = $"{_currentHealth:0.##} / {_maxHealth:0.##}";
                 if(IsAlive)
                 {
                     if(!_healthBar.gameObject.activeSelf)
