@@ -6089,18 +6089,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1899691646}
     m_Modifications:
-    - target: {fileID: 263214912364841253, guid: a225128a8be13e847a6d9e223a662048, type: 3}
-      propertyPath: 'm_Materials.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2100000, guid: a1ca84374499ba447ba2c7f497220a3e, type: 2}
     - target: {fileID: 4208765883546247857, guid: a225128a8be13e847a6d9e223a662048, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6371279195250182965, guid: a225128a8be13e847a6d9e223a662048, type: 3}
-      propertyPath: _playerData
-      value: 
-      objectReference: {fileID: 11400000, guid: 6bef8f74191759b47b8bfd96931f36af, type: 2}
     - target: {fileID: 6660831681044713762, guid: a225128a8be13e847a6d9e223a662048, type: 3}
       propertyPath: _healthBar
       value: 
@@ -6109,14 +6101,6 @@ PrefabInstance:
       propertyPath: _healthText
       value: 
       objectReference: {fileID: 467333226}
-    - target: {fileID: 7021029439131344341, guid: a225128a8be13e847a6d9e223a662048, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 4048253170c5015499c7368338cf8814, type: 2}
-    - target: {fileID: 7021029439131344341, guid: a225128a8be13e847a6d9e223a662048, type: 3}
-      propertyPath: 'm_Materials.Array.data[2]'
-      value: 
-      objectReference: {fileID: 2100000, guid: a1ca84374499ba447ba2c7f497220a3e, type: 2}
     - target: {fileID: 7727710396029906660, guid: a225128a8be13e847a6d9e223a662048, type: 3}
       propertyPath: m_LocalPosition.x
       value: -15.331

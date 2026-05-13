@@ -20,6 +20,7 @@ namespace Player
         private DetectCollision _detectCollision;
         private PlayerInputController _inputController;
         private PlayerStats _playerStats;
+        private ICharacterAnimator _cAnimator;
 
         private bool _isShooting;
         private bool _justEndedShooting;
@@ -34,6 +35,7 @@ namespace Player
             _inputController = GetComponent<PlayerInputController>();
             _detectCollision = GetComponent<DetectCollision>();
             _playerStats = GetComponent<PlayerStats>();
+            _cAnimator = GetComponentInChildren<ICharacterAnimator>();
 
             _camera = Camera.main;
 
@@ -127,6 +129,8 @@ namespace Player
                 var bullet = _bulletPool.Get();
                 bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
                 bullet.Init(_bulletPool);
+
+                _cAnimator.Play("Shoot");
 
                 _nextFireTime = Time.time + _playerStats.fireCooldown;
 
