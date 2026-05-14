@@ -341,7 +341,7 @@ MonoBehaviour:
     timePaused: 1
   _shootLayer:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 64
   _enemyData: {fileID: 11400000, guid: 17c2780f1b9b99640a6ca56608632cb9, type: 2}
 --- !u!1 &4520052725395882793
 GameObject:

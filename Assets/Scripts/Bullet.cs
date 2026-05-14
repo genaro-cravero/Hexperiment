@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     //ToDO change this to a scriptable object 
     [SerializeField] private BulletData _bulletData;
+    [SerializeField] private bool _collideWithInnerWalls;
     private float _speed = 20f;
     private float _lifeTime = 3f;
 
@@ -30,6 +31,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.CompareTag("OuterWall") || (_collideWithInnerWalls && other.CompareTag("InnerWall")))
+        {
+            _pool.Release(this);
+            return;
+        }
         if((_targetLayer.value & (1 << other.gameObject.layer)) != 0)
         {
             if (other.TryGetComponent(out Health.IDamageable damageable))

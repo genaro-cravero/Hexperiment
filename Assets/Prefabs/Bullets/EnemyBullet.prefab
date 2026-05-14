@@ -188,3 +188,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   _bulletData: {fileID: 11400000, guid: ceed19b4e66910443965393a61fd0492, type: 2}
+  _collideWithInnerWalls: 1
