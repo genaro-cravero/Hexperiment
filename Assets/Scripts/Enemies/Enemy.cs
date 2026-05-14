@@ -24,12 +24,14 @@ namespace Enemy
             _movement = GetComponent<EnemyMovement>();
 
             var enemycombat = GetComponent<EnemyCombat>();
+            var cAnimator = GetComponentInChildren<ICharacterAnimator>();
 
             _context = new EnemyContext
             {
                 enemyData = _enemyData,
                 player = _player,
                 movement = _movement,
+                cAnimator = cAnimator,
                 enemyCombat = enemycombat
             };
 

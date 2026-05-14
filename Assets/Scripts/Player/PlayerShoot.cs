@@ -130,7 +130,7 @@ namespace Player
                 bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
                 bullet.Init(_bulletPool);
 
-                _cAnimator.Play("Shoot");
+                _cAnimator.Play("Attack");
 
                 _nextFireTime = Time.time + _playerStats.fireCooldown;
 

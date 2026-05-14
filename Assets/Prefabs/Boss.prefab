@@ -737,8 +737,53 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2316216957051653036}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3118901715896325645}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3354744934330359469}
   m_SourcePrefab: {fileID: 100100000, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}
+--- !u!1 &3884541842578150981 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}
+  m_PrefabInstance: {fileID: 4119038737119062804}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3118901715896325645
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3884541842578150981}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 71e5a3fc11d18e24a8c41fcf4fc73255, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3354744934330359469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3884541842578150981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0150d5566a1a3644eb4560f1b12a16a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterAnimatorController
 --- !u!4 &4513586032338488575 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}

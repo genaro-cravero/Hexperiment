@@ -27,4 +27,11 @@ public class CharacterAnimatorController : MonoBehaviour, ICharacterAnimator
     {
         _animator.Play(stateName, 0, 0f);
     }
+
+    public bool IsAnimationFinished(string stateName)
+    {
+        bool isInState = _animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        bool isFinished = isInState && _animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= .9f;
+        return isFinished || !isInState;
+    }
 }

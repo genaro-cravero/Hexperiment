@@ -6,5 +6,6 @@ public interface ICharacterAnimator
     public void SetBool(string boolName, bool value);
     public void SetInteger(string intName, int value);
     public void Play(string stateName);
+    public bool IsAnimationFinished(string stateName);
 
 }

@@ -29,6 +29,7 @@ namespace Enemy
         private Vector3 _lastPlayerPosition;
         private Vector3 _playerVelocity;
         private float _lastVelocityTime;
+        private ICharacterAnimator _cAnimator;
 
         private const float PREDICTION_BASE = 0.75f;
         private float _predictionAccuracy;
@@ -38,6 +39,8 @@ namespace Enemy
             _damage = context.enemyData.attackDamage;
             _player = context.player;
             _data = context.enemyData;
+            _cAnimator = context.cAnimator;
+
             _lastPlayerPosition = _player.position;
             _lastVelocityTime = Time.time;
             _bulletPool = new ObjectPool<Bullet>(
@@ -66,15 +69,20 @@ namespace Enemy
 
         private IEnumerator AttackCoroutine()
         {
-            while(Time.time < _lastAttackTime + _fireRate)
+            while (Time.time < _lastAttackTime + _fireRate)
             {
                 yield return RotateToTarget();
             }
+
+            var attackAnimName = "Attack";
+            _cAnimator.Play(attackAnimName);
+
             var bullet = _bulletPool.Get();
             bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
             bullet.Init(_bulletPool);
 
-            yield return new WaitForSeconds(0.3f); //Simulate visual attack delay
+            yield return null;
+            yield return new WaitUntil(() => _cAnimator.IsAnimationFinished(attackAnimName));
             _isAttacking = false;
             _lastAttackTime = Time.time;
         }

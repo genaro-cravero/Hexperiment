@@ -16,12 +16,14 @@ namespace Enemy
 
         private bool _isAttacking;
         public bool IsAttacking => _isAttacking;
+        private ICharacterAnimator _cAnimator;
 
         public void Initialize(EnemyContext context)
         {
             _initialized = true;
             _damage = context.enemyData.attackDamage;
             _attackRadius = context.enemyData.attackDistance + 0.4f;
+            _cAnimator = context.cAnimator;
             _initialized = true;
         }
 
@@ -39,7 +41,8 @@ namespace Enemy
         {
             Collider[] hits = new Collider[1];
             var hitCount = Physics.OverlapSphereNonAlloc(transform.position, _attackRadius, hits, _playerLayer);
-
+            var attackAnimName = "Attack";
+            _cAnimator.Play(attackAnimName);
             if (hitCount > 0)
             {
                 if (hits[0].TryGetComponent(out Health.IDamageable damageable))
@@ -47,8 +50,8 @@ namespace Enemy
                     damageable.TakeDamage(_damage, gameObject, true);
                 }
             }
-
-            yield return new WaitForSeconds(0.3f); //Simulate visual attack delay
+            yield return null;
+            yield return new WaitUntil(() => _cAnimator.IsAnimationFinished(attackAnimName));
             _isAttacking = false;
             _lastAttackTime = Time.time;
         }
