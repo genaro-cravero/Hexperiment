@@ -188,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   _bulletData: {fileID: 11400000, guid: 9d5726a478c91ec4f836688441e2ca25, type: 2}
   _collideWithInnerWalls: 0
-  _rotate: 1
+  _rotateSpeed: 120
 --- !u!1 &7962179810846686371
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +271,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 3
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_SoftShadowQuality: 0
   m_RenderingLayersMask:
     serializedVersion: 0
-    m_Bits: 1
+    m_Bits: 3
   m_ShadowRenderingLayersMask:
     serializedVersion: 0
     m_Bits: 1

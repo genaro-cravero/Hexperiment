@@ -7,7 +7,10 @@ public class Bullet : MonoBehaviour
     //ToDO change this to a scriptable object 
     [SerializeField] private BulletData _bulletData;
     [SerializeField] private bool _collideWithInnerWalls;
-    [SerializeField] private bool _rotate;
+
+    [SerializeField, Range(0,360)] private float _rotateSpeed = 0;
+    private GameObject _visual;
+
     private float _speed = 20f;
     private float _lifeTime = 3f;
 
@@ -21,6 +24,7 @@ public class Bullet : MonoBehaviour
         _pool = pool;
         _speed = _bulletData.speed;
         _lifeTime = _bulletData.lifeTime;
+        _visual = transform.GetChild(0).gameObject;
 
         StartCoroutine(ReturnAfterLifetime());
     }
@@ -28,9 +32,9 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         transform.Translate(Vector3.forward * _speed * Time.deltaTime);
-        if(_rotate)
+        if(_rotateSpeed > 0)
         {
-            transform.Rotate(Vector3.up * _speed * Time.deltaTime);
+            _visual.transform.Rotate(Vector3.forward * _rotateSpeed * Time.deltaTime);
         }
     }
 

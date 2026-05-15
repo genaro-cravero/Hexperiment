@@ -33,7 +33,7 @@ public class BulletHell : MonoBehaviour
                 createFunc: () => Instantiate(_stage[stageIndex].bulletPrefab),
                 actionOnGet: bullet =>
                 {
-                    bullet.SetParameters(_shootLayer, _bulletDamage, false);
+                    bullet.SetParameters(_shootLayer, _bulletDamage * (stageIndex + 1), false);
                     bullet.gameObject.SetActive(true);
                 },
                 actionOnRelease: bullet => bullet.gameObject.SetActive(false),

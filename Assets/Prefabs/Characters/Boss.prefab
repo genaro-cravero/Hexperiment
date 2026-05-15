@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5449624564272259456}
   - component: {fileID: 4778511852331348449}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: EnemyHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4454338731184453659}
   - component: {fileID: 4384677221467120979}
   - component: {fileID: 777571422410612724}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 1629660369385085698}
   - component: {fileID: 2323593327670354522}
   - component: {fileID: 7574827098919310839}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,6 +607,133 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1557787721610570111}
   m_Mesh: {fileID: 0}
+--- !u!1 &3592400694070173854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 272094468202413886}
+  - component: {fileID: 5592246874635747418}
+  - component: {fileID: 8962180860238570751}
+  m_Layer: 6
+  m_Name: Point Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &272094468202413886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3592400694070173854}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4513586032338488575}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &5592246874635747418
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3592400694070173854}
+  m_Enabled: 1
+  serializedVersion: 13
+  m_Type: 2
+  m_Color: {r: 0.6950668, g: 0.115877524, b: 0.7924528, a: 1}
+  m_Intensity: 2
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize2D: {x: 0.5, y: 0.5}
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 0
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
+  m_ShapeRadius: 0.025
+  m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
+--- !u!114 &8962180860238570751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3592400694070173854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &3813216101796530660
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 439714302150748891}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -693,19 +820,19 @@ MonoBehaviour:
     rotationSpeed: 100
     bulletPattern: 0
     ringBulletCount: 0
-    pauseEveryNSeconds: 5
+    pauseEveryNSeconds: 20
     timePaused: 1
   - bulletPrefab: {fileID: 7767240497636970606, guid: 77ce5f8eb36d1a1428a19fdb2d524a5d, type: 3}
     rotationSpeed: 100
     bulletPattern: 1
     ringBulletCount: 0
-    pauseEveryNSeconds: 15
+    pauseEveryNSeconds: 20
     timePaused: 1
   - bulletPrefab: {fileID: 7767240497636970606, guid: 1c9acf109ad1c584e97e7ccc20c6b152, type: 3}
-    rotationSpeed: 15
+    rotationSpeed: 20
     bulletPattern: 2
-    ringBulletCount: 8
-    pauseEveryNSeconds: 30
+    ringBulletCount: 6
+    pauseEveryNSeconds: 40
     timePaused: 1
   _shootLayer:
     serializedVersion: 2
@@ -927,7 +1054,7 @@ GameObject:
   - component: {fileID: 5429625905982368335}
   - component: {fileID: 6712261850186437449}
   - component: {fileID: 8621786173509776497}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: Enemy HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1065,7 +1192,7 @@ GameObject:
   - component: {fileID: 6551926109663086751}
   - component: {fileID: 8034165530394208839}
   - component: {fileID: 1979917933270200478}
-  m_Layer: 7
+  m_Layer: 5
   m_Name: EnemyCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1225,6 +1352,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4862350278976214850, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4862350278976214850, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 5c9e7781361f4ea478b37e6766a988f1, type: 2}
@@ -1321,6 +1452,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2316216957051653036}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 272094468202413886}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ae3d0f2883afcf84bac37610d8af1cf9, type: 3}
       insertIndex: -1
