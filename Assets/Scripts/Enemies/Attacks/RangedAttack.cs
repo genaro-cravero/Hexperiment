@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
+using UnityEngine.VFX;
 
 namespace Enemy
 {
@@ -12,6 +13,7 @@ namespace Enemy
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private LayerMask _shootLayer;
+        [SerializeField] private VisualEffect _muzzleVFX;
 
         [SerializeField] private BulletData _bulletData;
         private IObjectPool<Bullet> _bulletPool;
@@ -75,6 +77,7 @@ namespace Enemy
             }
 
             var attackAnimName = "Attack";
+            _muzzleVFX.Play();
             _cAnimator.Play(attackAnimName);
 
             var bullet = _bulletPool.Get();

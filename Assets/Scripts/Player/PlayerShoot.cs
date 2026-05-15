@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
+using UnityEngine.VFX;
 
 namespace Player
 {
@@ -15,6 +16,7 @@ namespace Player
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private LayerMask _shootLayer;
+        [SerializeField] private VisualEffect _muzzleVFX;
         private IObjectPool<Bullet> _bulletPool;
 
         private DetectCollision _detectCollision;
@@ -130,6 +132,7 @@ namespace Player
                 bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
                 bullet.Init(_bulletPool);
 
+                _muzzleVFX.Play();
                 _cAnimator.Play("Attack");
 
                 _nextFireTime = Time.time + _playerStats.fireCooldown;
