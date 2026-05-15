@@ -33,7 +33,9 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _BlendModePreserveSpecular: 1
     - _Smoothness: 1
+    - _SrcBlend: 1
     m_Colors:
     - _BaseColor: {r: 0.7264151, g: 0.56505626, b: 0.051397286, a: 1}
     - _Color: {r: 0.7264151, g: 0.5650562, b: 0.051397264, a: 1}

@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     //ToDO change this to a scriptable object 
     [SerializeField] private BulletData _bulletData;
     [SerializeField] private bool _collideWithInnerWalls;
+    [SerializeField] private bool _rotate;
     private float _speed = 20f;
     private float _lifeTime = 3f;
 
@@ -27,6 +28,10 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         transform.Translate(Vector3.forward * _speed * Time.deltaTime);
+        if(_rotate)
+        {
+            transform.Rotate(Vector3.up * _speed * Time.deltaTime);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
