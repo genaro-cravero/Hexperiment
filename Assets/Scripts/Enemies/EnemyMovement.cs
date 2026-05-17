@@ -67,6 +67,7 @@ namespace Enemy
 
         public void Stop()
         {
+            if(!_agent.isActiveAndEnabled) return;
             _agent.isStopped = true;
             _agent.ResetPath();
         }

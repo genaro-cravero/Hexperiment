@@ -1,3 +1,4 @@
+using Health;
 using Player;
 using System.Collections;
 using UnityEngine;
@@ -26,6 +27,7 @@ namespace Enemy
         private bool _initialized;
         private bool _isAttacking;
         public bool IsAttacking => _isAttacking;
+        private HealthComponent _health;
         private Transform _player;
         private CharacterData _data;
         private Vector3 _lastPlayerPosition;
@@ -35,6 +37,15 @@ namespace Enemy
 
         private const float PREDICTION_BASE = 0.75f;
         private float _predictionAccuracy;
+
+        private void OnDisable()
+        {
+            if (_health != null)
+                _health.OnDie -= HandleDie;
+
+            StopAllCoroutines();
+            _isAttacking = false;
+        }
         public void Initialize(EnemyContext context)
         {
             _fireRate = context.enemyData.attackCoolDown;
@@ -58,11 +69,22 @@ namespace Enemy
                 maxSize: 20
             );
             _predictionAccuracy = Mathf.Lerp(PREDICTION_BASE, 1f, WaveManager.Instance.TotalWavesProgress);
+            _health = GetComponent<HealthComponent>();
+            StartCoroutine(WaitForInitializeHealth());    
+
             _initialized = true;
+        }
+        private IEnumerator WaitForInitializeHealth()
+        {
+            if (!_health) yield break;
+
+            yield return new WaitUntil(() => _health.IsInitialized);
+
+            _health.OnDie += HandleDie;
         }
         public void Attack()
         {
-            if (!_initialized || IsAttacking)
+            if (!_initialized || IsAttacking || !_health.IsAlive)
                 return;
 
             _isAttacking = true;
@@ -73,6 +95,8 @@ namespace Enemy
         {
             while (Time.time < _lastAttackTime + _fireRate)
             {
+                if (!_health.IsAlive) HandleDie();
+
                 yield return RotateToTarget();
             }
 
@@ -135,6 +159,15 @@ namespace Enemy
             _playerVelocity = (currentPosition - _lastPlayerPosition) / deltaTime;
             _lastPlayerPosition = currentPosition;
             _lastVelocityTime = Time.time;
+        }
+
+        private void HandleDie()
+        {
+            StopAllCoroutines();
+            _isAttacking = false;
+            if (_muzzleVFX)
+                _muzzleVFX.Stop();
+            enabled = false;
         }
     }
 }

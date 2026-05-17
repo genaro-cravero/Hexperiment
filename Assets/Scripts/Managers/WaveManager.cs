@@ -16,6 +16,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private GameObject _meleeEnemyPrefab;
     [SerializeField] private GameObject _rangedEnemyPrefab;
     [SerializeField] private GameObject _bossPrefab;
+    private List<GameObject> _spawnedEnemies = new List<GameObject>();
 
     [Header("Timing")]
     [SerializeField] private float _timeBetweenWaves = 3f;
@@ -89,7 +90,7 @@ public class WaveManager : MonoBehaviour
         GameObject enemy = Instantiate(enemyPrefab, randomSpawn.position, Quaternion.identity);
 
         HealthComponent enemyHealth = enemy.GetComponent<HealthComponent>();
-
+        _spawnedEnemies.Add(enemy);
         enemyHealth.OnDie += HandleEnemyDeath;
     }
 
@@ -108,6 +109,18 @@ public class WaveManager : MonoBehaviour
             List<UpgradeData> randomUpgrades = UpgradeManager.Instance.GetRandomUpgrades(3);
             UIManager.Instance.ShowUpgradePanel(randomUpgrades);
         }
+    }
+
+    public void ClearEnemies()
+    {
+        foreach (var enemy in _spawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                Destroy(enemy);
+            }
+        }
+        _spawnedEnemies.Clear();
     }
 
     public void StartNextWave()

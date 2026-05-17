@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -23,10 +24,16 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()
     {
+        if (_currentState is GameState.Win) return;
         SetCurrentState(GameState.Win);
 
-        UIManager.Instance.ShowWinScreen();
+        StartCoroutine(WinCoroutine());
+    }
 
+    private IEnumerator WinCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        UIManager.Instance.ShowWinScreen();
         Time.timeScale = 0f;
     }
 

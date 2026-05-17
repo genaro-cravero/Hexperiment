@@ -36,6 +36,9 @@ namespace Health
 
         public void TakeDamage(float damage, GameObject source, bool push)
         {
+            if (!IsAlive) return;
+            if (!GameManager.Instance.IsGameplayActive) return;
+
             _currentHealth -= damage;
             if (_currentHealth <= 0)
             {

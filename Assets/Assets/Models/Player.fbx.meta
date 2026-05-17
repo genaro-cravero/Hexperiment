@@ -133,8 +133,8 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Player|Move
-      takeName: Player|Move
+      name: Player|Move Static
+      takeName: Player|Shoot
       internalID: 3696000851873851275
       firstFrame: 0
       lastFrame: 0
