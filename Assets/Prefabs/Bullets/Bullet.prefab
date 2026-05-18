@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   _bulletData: {fileID: 11400000, guid: 15f3aaa30588fd54982cf6b6745ade2e, type: 2}
   _collideWithInnerWalls: 1
-  _rotate: 0
+  _rotateSpeed: 0
 --- !u!1 &7814499597014516988
 GameObject:
   m_ObjectHideFlags: 0
