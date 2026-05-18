@@ -316,3 +316,4 @@ MonoBehaviour:
   _bulletData: {fileID: 11400000, guid: 9d5726a478c91ec4f836688441e2ca25, type: 2}
   _collideWithInnerWalls: 0
   _rotateSpeed: 50
+  _hitVfxPrefab: {fileID: 8443315704496310908, guid: 6ef35fa36e3a65043b2d800600204bdd, type: 3}

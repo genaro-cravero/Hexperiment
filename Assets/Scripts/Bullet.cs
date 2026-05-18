@@ -4,12 +4,14 @@ using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {
-    //ToDO change this to a scriptable object 
     [SerializeField] private BulletData _bulletData;
     [SerializeField] private bool _collideWithInnerWalls;
 
     [SerializeField, Range(0,360)] private float _rotateSpeed = 0;
     private GameObject _visual;
+
+    [Header("VFX")]
+    [SerializeField] private ParticleSystem _hitVfxPrefab;
 
     private float _speed = 20f;
     private float _lifeTime = 3f;
@@ -42,6 +44,7 @@ public class Bullet : MonoBehaviour
     {
         if(other.CompareTag("OuterWall") || (_collideWithInnerWalls && other.CompareTag("InnerWall")))
         {
+            SpawnHitVfx(other.ClosestPoint(transform.position));
             _pool.Release(this);
             return;
         }
@@ -51,6 +54,7 @@ public class Bullet : MonoBehaviour
             {
                 damageable.TakeDamage(_damage, gameObject, _push);
             }
+            SpawnHitVfx(other.ClosestPoint(transform.position));
             _pool.Release(this);
         }
     }
@@ -66,5 +70,10 @@ public class Bullet : MonoBehaviour
         _targetLayer = mask;
         _damage = damage;
         _push = push;
+    }
+
+    private void SpawnHitVfx(Vector3 position)
+    {
+        VfxManager.Instance.Play(_hitVfxPrefab, position, Quaternion.identity);
     }
 }

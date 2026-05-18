@@ -189,6 +189,7 @@ MonoBehaviour:
   _bulletData: {fileID: 11400000, guid: 9d5726a478c91ec4f836688441e2ca25, type: 2}
   _collideWithInnerWalls: 0
   _rotateSpeed: 120
+  _hitVfxPrefab: {fileID: 8443315704496310908, guid: 8e6504ffe16c5d04e8f0307ce0d964c4, type: 3}
 --- !u!1 &7962179810846686371
 GameObject:
   m_ObjectHideFlags: 0

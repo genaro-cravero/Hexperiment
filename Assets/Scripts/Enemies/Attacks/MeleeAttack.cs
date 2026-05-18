@@ -1,11 +1,16 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Enemy
 {
     public class MeleeAttack : MonoBehaviour, IEnemyAttack
     {
         [SerializeField] private LayerMask _playerLayer;
+
+        [Header("VFX")]
+        [SerializeField] private ParticleSystem _hitVfxPrefab;
+
         private float _attackRadius;
         private float _damage = 1f;
 
@@ -16,6 +21,7 @@ namespace Enemy
 
         private bool _isAttacking;
         public bool IsAttacking => _isAttacking;
+        private Transform _player;
         private ICharacterAnimator _cAnimator;
 
         public void Initialize(EnemyContext context)
@@ -24,6 +30,7 @@ namespace Enemy
             _damage = context.enemyData.attackDamage;
             _attackRadius = context.enemyData.attackDistance + 0.4f;
             _cAnimator = context.cAnimator;
+            _player = context.player;
             _initialized = true;
         }
 
@@ -49,6 +56,8 @@ namespace Enemy
                 {
                     damageable.TakeDamage(_damage, gameObject, true);
                 }
+                Quaternion rot = Quaternion.LookRotation(_player.position - transform.position);
+                VfxManager.Instance.Play(_hitVfxPrefab, _player.position, rot);
             }
             yield return null;
             yield return new WaitUntil(() => _cAnimator.IsAnimationFinished(attackAnimName));
