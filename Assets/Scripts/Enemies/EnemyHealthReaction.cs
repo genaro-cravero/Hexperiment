@@ -1,4 +1,6 @@
 using Health;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,6 +26,13 @@ namespace Enemy
         private Collider _col;
         private NavMeshAgent _agent;
 
+        [Header("Hurt Blink")]
+        [SerializeField] private Material _blinkMat;
+        [SerializeField, Range(0.01f, 1f)] private float _timeBlinking = 0.05f;
+        private List<Renderer> _renderers = new List<Renderer>();
+        private Dictionary<Renderer, Material[]> _originalMaterials = new Dictionary<Renderer, Material[]>();
+        private bool _isBlinkging;
+
         private void Awake()
         {
             _health = GetComponent<HealthComponent>();
@@ -35,6 +44,17 @@ namespace Enemy
             _agent = GetComponent<NavMeshAgent>();
             if (_brokenBodyGO)
                 _brokenBodies = _brokenBodyGO.GetComponentsInChildren<Rigidbody>(true);
+
+            if (_visualGO)
+            {
+                Renderer[] renderers = _visualGO.GetComponentsInChildren<Renderer>();
+                foreach (var renderer in renderers)
+                {
+                    if (!renderer) continue;
+                    _renderers.Add(renderer);
+                    _originalMaterials[renderer] = renderer.materials;
+                }
+            }
         }
 
         private void Start()
@@ -52,6 +72,9 @@ namespace Enemy
         private void HandleDamage(float damage, GameObject source)
         {
             Vector3 pushDirection = (transform.position - source.transform.position).normalized;
+
+            if (_isBlinkging) return;
+            StartCoroutine(BlinkEffect());
         }
 
         private void HandlePush(float damage, GameObject source)
@@ -111,6 +134,28 @@ namespace Enemy
             _health.OnDamage -= HandleDamage;
             _health.OnDie -= HandleDie;
             _health.OnPush -= HandlePush;
+        }
+
+        private IEnumerator BlinkEffect()
+        {
+            _isBlinkging = true;
+            foreach (var renderer in _renderers)
+            {
+                if (!renderer) continue;
+                Material[] mats = new Material[renderer.materials.Length];
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    mats[i] = _blinkMat;
+                }
+                renderer.materials = mats;
+            }
+            yield return new WaitForSeconds(_timeBlinking);
+            foreach (var renderer in _renderers)
+            {
+                if (!renderer) continue;
+                renderer.materials = _originalMaterials[renderer];
+            }
+            _isBlinkging = false;
         }
     }
 }

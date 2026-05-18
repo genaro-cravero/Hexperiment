@@ -663,6 +663,8 @@ MonoBehaviour:
   _explosionRadius: 10
   _upwardsModifier: 0.5
   _forceRandomRange: 2
+  _blinkMat: {fileID: 2100000, guid: 66c9223f9d91efe4881f388a6c4ad7a2, type: 2}
+  _timeBlinking: 0.05
 --- !u!114 &1191137035188890861
 MonoBehaviour:
   m_ObjectHideFlags: 0

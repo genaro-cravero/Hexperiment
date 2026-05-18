@@ -332,6 +332,8 @@ MonoBehaviour:
   _explosionForce: 100
   _explosionRadius: 10
   _upwardsModifier: 0.5
+  _blinkMat: {fileID: 2100000, guid: cfe78cd9a84c5e248880c5d896b87053, type: 2}
+  _timeBlinking: 0.05
 --- !u!114 &6371279195250182965
 MonoBehaviour:
   m_ObjectHideFlags: 0
