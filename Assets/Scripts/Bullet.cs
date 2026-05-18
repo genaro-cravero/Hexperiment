@@ -20,6 +20,7 @@ public class Bullet : MonoBehaviour
     private LayerMask _targetLayer;
     private IObjectPool<Bullet> _pool;
     private bool _push = false;
+    private Vector3 _lastPosition;
 
     public void Init(IObjectPool<Bullet> pool)
     {
@@ -27,13 +28,24 @@ public class Bullet : MonoBehaviour
         _speed = _bulletData.speed;
         _lifeTime = _bulletData.lifeTime;
         _visual = transform.GetChild(0).gameObject;
+        _lastPosition = transform.position;
 
         StartCoroutine(ReturnAfterLifetime());
     }
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * _speed * Time.deltaTime);
+        Vector3 start = _lastPosition;
+        Vector3 end = transform.position + transform.forward * _speed * Time.deltaTime;
+        if (Physics.Linecast(start, end, out var hit))
+        {
+            HandleHit(hit.collider, hit.point);
+            _lastPosition = end;
+            return;
+        }
+
+        transform.position = end;
+        _lastPosition = end;
         if(_rotateSpeed > 0)
         {
             _visual.transform.Rotate(Vector3.forward * _rotateSpeed * Time.deltaTime);
@@ -42,19 +54,24 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("OuterWall") || (_collideWithInnerWalls && other.CompareTag("InnerWall")))
+        HandleHit(other, other.ClosestPoint(transform.position));
+    }
+
+    private void HandleHit(Collider other, Vector3 hitPoint)
+    {
+        if (other.CompareTag("OuterWall") || (_collideWithInnerWalls && other.CompareTag("InnerWall")))
         {
-            SpawnHitVfx(other.ClosestPoint(transform.position));
+            SpawnHitVfx(hitPoint);
             _pool.Release(this);
             return;
         }
-        if((_targetLayer.value & (1 << other.gameObject.layer)) != 0)
+        if ((_targetLayer.value & (1 << other.gameObject.layer)) != 0)
         {
             if (other.TryGetComponent(out Health.IDamageable damageable))
             {
                 damageable.TakeDamage(_damage, gameObject, _push);
             }
-            SpawnHitVfx(other.ClosestPoint(transform.position));
+            SpawnHitVfx(hitPoint);
             _pool.Release(this);
         }
     }
