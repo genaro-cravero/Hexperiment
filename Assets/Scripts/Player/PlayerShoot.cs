@@ -108,6 +108,7 @@ namespace Player
 
         private void StartShooting()
         {
+            if (GameManager.Instance.CurrentState != GameState.Playing) return;
             if (_isShooting || Time.time < _nextFireTime) return;
             StartCoroutine(ShootCoroutine());
         }
