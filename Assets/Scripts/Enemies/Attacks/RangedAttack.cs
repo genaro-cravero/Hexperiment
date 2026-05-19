@@ -1,9 +1,11 @@
+using Health;
 using Player;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 using UnityEngine.UIElements;
+using UnityEngine.VFX;
 
 namespace Enemy
 {
@@ -12,6 +14,7 @@ namespace Enemy
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private LayerMask _shootLayer;
+        [SerializeField] private VisualEffect _muzzleVFX;
 
         [SerializeField] private BulletData _bulletData;
         private IObjectPool<Bullet> _bulletPool;
@@ -24,20 +27,33 @@ namespace Enemy
         private bool _initialized;
         private bool _isAttacking;
         public bool IsAttacking => _isAttacking;
+        private HealthComponent _health;
         private Transform _player;
         private CharacterData _data;
         private Vector3 _lastPlayerPosition;
         private Vector3 _playerVelocity;
         private float _lastVelocityTime;
+        private ICharacterAnimator _cAnimator;
 
         private const float PREDICTION_BASE = 0.75f;
         private float _predictionAccuracy;
+
+        private void OnDisable()
+        {
+            if (_health != null)
+                _health.OnDie -= HandleDie;
+
+            StopAllCoroutines();
+            _isAttacking = false;
+        }
         public void Initialize(EnemyContext context)
         {
             _fireRate = context.enemyData.attackCoolDown;
             _damage = context.enemyData.attackDamage;
             _player = context.player;
             _data = context.enemyData;
+            _cAnimator = context.cAnimator;
+
             _lastPlayerPosition = _player.position;
             _lastVelocityTime = Time.time;
             _bulletPool = new ObjectPool<Bullet>(
@@ -53,11 +69,22 @@ namespace Enemy
                 maxSize: 20
             );
             _predictionAccuracy = Mathf.Lerp(PREDICTION_BASE, 1f, WaveManager.Instance.TotalWavesProgress);
+            _health = GetComponent<HealthComponent>();
+            StartCoroutine(WaitForInitializeHealth());    
+
             _initialized = true;
+        }
+        private IEnumerator WaitForInitializeHealth()
+        {
+            if (!_health) yield break;
+
+            yield return new WaitUntil(() => _health.IsInitialized);
+
+            _health.OnDie += HandleDie;
         }
         public void Attack()
         {
-            if (!_initialized || IsAttacking)
+            if (!_initialized || IsAttacking || !_health.IsAlive)
                 return;
 
             _isAttacking = true;
@@ -66,15 +93,23 @@ namespace Enemy
 
         private IEnumerator AttackCoroutine()
         {
-            while(Time.time < _lastAttackTime + _fireRate)
+            while (Time.time < _lastAttackTime + _fireRate)
             {
+                if (!_health.IsAlive) HandleDie();
+
                 yield return RotateToTarget();
             }
+
+            var attackAnimName = "Attack";
+            _muzzleVFX.Play();
+            _cAnimator.Play(attackAnimName);
+
             var bullet = _bulletPool.Get();
             bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
             bullet.Init(_bulletPool);
 
-            yield return new WaitForSeconds(0.3f); //Simulate visual attack delay
+            yield return null;
+            yield return new WaitUntil(() => _cAnimator.IsAnimationFinished(attackAnimName));
             _isAttacking = false;
             _lastAttackTime = Time.time;
         }
@@ -124,6 +159,15 @@ namespace Enemy
             _playerVelocity = (currentPosition - _lastPlayerPosition) / deltaTime;
             _lastPlayerPosition = currentPosition;
             _lastVelocityTime = Time.time;
+        }
+
+        private void HandleDie()
+        {
+            StopAllCoroutines();
+            _isAttacking = false;
+            if (_muzzleVFX)
+                _muzzleVFX.Stop();
+            enabled = false;
         }
     }
 }

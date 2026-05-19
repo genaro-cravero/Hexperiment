@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
+using UnityEngine.VFX;
 
 namespace Player
 {
@@ -15,11 +16,13 @@ namespace Player
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private LayerMask _shootLayer;
+        [SerializeField] private VisualEffect _muzzleVFX;
         private IObjectPool<Bullet> _bulletPool;
 
         private DetectCollision _detectCollision;
         private PlayerInputController _inputController;
         private PlayerStats _playerStats;
+        private ICharacterAnimator _cAnimator;
 
         private bool _isShooting;
         private bool _justEndedShooting;
@@ -34,6 +37,7 @@ namespace Player
             _inputController = GetComponent<PlayerInputController>();
             _detectCollision = GetComponent<DetectCollision>();
             _playerStats = GetComponent<PlayerStats>();
+            _cAnimator = GetComponentInChildren<ICharacterAnimator>();
 
             _camera = Camera.main;
 
@@ -104,6 +108,7 @@ namespace Player
 
         private void StartShooting()
         {
+            if (GameManager.Instance.CurrentState != GameState.Playing) return;
             if (_isShooting || Time.time < _nextFireTime) return;
             StartCoroutine(ShootCoroutine());
         }
@@ -127,6 +132,9 @@ namespace Player
                 var bullet = _bulletPool.Get();
                 bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
                 bullet.Init(_bulletPool);
+
+                _muzzleVFX.Play();
+                _cAnimator.Play("Attack");
 
                 _nextFireTime = Time.time + _playerStats.fireCooldown;
 

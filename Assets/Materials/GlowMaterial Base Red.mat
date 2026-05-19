@@ -35,10 +35,10 @@ Material:
     m_Floats:
     - _Smoothness: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.3365996, b: 0.015686274, a: 1}
-    - _Color: {r: 1, g: 0.33659956, b: 0.015686274, a: 1}
-    - _EmissionColor: {r: 0.48584908, g: 0.017805994, b: 0.017805994, a: 1}
-    - _SpecColor: {r: 1, g: 0, b: 0.73942924, a: 1}
+    - _BaseColor: {r: 0.8584906, g: 0.08503916, b: 0.16290702, a: 1}
+    - _Color: {r: 0.8584906, g: 0.08503913, b: 0.16290697, a: 1}
+    - _EmissionColor: {r: 2.6082377, g: 0.0955899, b: 0.0955899, a: 1}
+    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2756055043791307004

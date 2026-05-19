@@ -11,6 +11,7 @@ namespace Enemy
         private NavMeshAgent _agent;
         private CharacterData _data => _enemy.Context.enemyData;
         private EnemyCombat _enemyCombat => _enemy.Context.enemyCombat;
+        private ICharacterAnimator _cAnimator => _enemy.Context.cAnimator;
         private Coroutine _pushCoroutine;
         private bool _isbeingPushed;
         [SerializeField] private bool _canBePushed = true;
@@ -19,6 +20,17 @@ namespace Enemy
         {
             _enemy = GetComponent<Enemy>();
             _agent = GetComponent<NavMeshAgent>();
+        }
+
+        private void Update()
+        {
+            if (_agent.pathPending) return;
+            if (_agent.isStopped) return;
+
+            if (_agent.remainingDistance <= _agent.stoppingDistance)
+            {
+                _cAnimator.SetBool("IsMoving", false);
+            }
         }
 
         private void Start()
@@ -38,6 +50,7 @@ namespace Enemy
 
             if (!_enemyCombat.IsInAttackRange() || !_enemyCombat.IsPlayerInSight())
             {
+                _cAnimator.SetBool("IsMoving", true);
                 _agent.SetDestination(targetPosition);
             }
         }
@@ -48,11 +61,13 @@ namespace Enemy
             if (_agent.isStopped)
                 _agent.isStopped = false;
 
+            _cAnimator.SetBool("IsMoving", true);
             _agent.SetDestination(targetPosition);
         }
 
         public void Stop()
         {
+            if(!_agent.isActiveAndEnabled) return;
             _agent.isStopped = true;
             _agent.ResetPath();
         }
@@ -66,18 +81,6 @@ namespace Enemy
 
             _pushCoroutine = StartCoroutine(PushBackCoroutine(direction, damage));
         }
-
-        public float GetRemainingDistance()
-        {
-            return _agent.remainingDistance;
-        }
-
-        public bool HasReachedDestination(float threshold = 0.5f)
-        {
-            if (_agent.pathPending) return false;
-            return _agent.remainingDistance <= threshold;
-        }
-
 
         private const float PUSHBACK_DISTANCE = 0.3f;
         private const float PUSHBACK_DURATION = 0.1f;

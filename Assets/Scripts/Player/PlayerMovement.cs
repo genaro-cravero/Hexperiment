@@ -14,7 +14,14 @@ namespace Player
         private DetectCollision _detectCollision;
         private PlayerStats _playerStats;
         private Coroutine _knockbackCoroutine;
+        private ICharacterAnimator _cAnimator;
         private bool _isKnockedBack;
+
+        [Header("Idle")]
+        private float _idleTimer;
+        private const float IDLE_VARIANCE = 7f;
+        private const int IDLE_VARIANTS = 2;
+        private bool _isFiring;
 
         [Header("Movement Values")]
         private Vector3 _velocity;
@@ -32,6 +39,7 @@ namespace Player
             _detectCollision = GetComponent<DetectCollision>();
             _controller = GetComponent<CharacterController>();
             _playerStats = GetComponent<PlayerStats>();
+            _cAnimator = GetComponentInChildren<ICharacterAnimator>();
         }
 
         private void Start()
@@ -39,14 +47,25 @@ namespace Player
             _gravitySpeed = _playerStats.gravity;
             _gravityAcceleration = _playerStats.gravityAcceleration;
         }
+        private void OnEnable()
+        {
+            _inputController.OnFirePressed += StartFire;
+            _inputController.OnFireReleased += EndFire;
+        }
+        private void OnDisable()
+        {
+            _inputController.OnFirePressed -= StartFire;
+            _inputController.OnFireReleased -= EndFire;
+        }
 
         private void Update()
         {
-            if(GameManager.Instance.CurrentState != GameState.Playing)
+            if (GameManager.Instance.CurrentState != GameState.Playing)
                 return;
 
             if (_isKnockedBack)
             {
+                _cAnimator.SetBool("IsMoving", false);
                 CalculateGravity();
                 return;
             }
@@ -56,6 +75,14 @@ namespace Player
 
             Vector3 move = transform.right * x + transform.forward * z;
             _controller.Move(move * _playerStats.moveSpeed * Time.deltaTime);
+
+            bool isMoving = move.sqrMagnitude > 0.001f;
+            _cAnimator.SetBool("IsMoving", isMoving);
+
+            if (isMoving)
+                _idleTimer = 0;
+            else
+                Idle();
 
             CalculateGravity();
         }
@@ -93,9 +120,9 @@ namespace Player
             float x = _inputController.moveInput.x;
             float z = _inputController.moveInput.y;
             Vector3 inputMove = transform.right * x + transform.forward * z;
-            
+
             _isKnockedBack = !(inputMove.sqrMagnitude > 0.001f && Vector3.Dot(inputMove.normalized, pushDirection) > 0f);
-            
+
             float elapsed = 0f;
             var force = _knockbackBaseForce * forceMultiplier;
             while (elapsed < _knockbackDuration)
@@ -106,6 +133,42 @@ namespace Player
             }
 
             _isKnockedBack = false;
+        }
+
+        private void Idle()
+        {
+            _idleTimer += Time.deltaTime;
+            if(_idleTimer > IDLE_VARIANCE)
+            {
+                var randomIdle = Random.Range(1, IDLE_VARIANTS + 1);
+                _idleTimer = 0;
+                _cAnimator.SetInteger("IdleVariant", randomIdle);
+            } else
+            {
+                _cAnimator.SetInteger("IdleVariant", 0);
+            }
+        }
+
+        private void StartFire()
+        {
+            _isFiring = true;
+            StartCoroutine(ResetIdle());
+        }
+
+        private void EndFire()
+        {
+            _isFiring = false;
+        }
+
+        private IEnumerator ResetIdle()
+        {
+            while (_isFiring)
+            {
+                _idleTimer = 0;
+                _cAnimator.SetInteger("IdleVariant", 0);
+                yield return null;
+            }
+
         }
     }
 

@@ -122,6 +122,7 @@ public class UIManager : MonoBehaviour
             }
         }
         _waveCanvasGroup.alpha = 1f;
+        WaveManager.Instance.ClearEnemies();
         yield return new WaitForSeconds(WAVE_FULLBLACK_TIME);
         _waveText.gameObject.SetActive(true);
         StartCoroutine(HideWavePanel());

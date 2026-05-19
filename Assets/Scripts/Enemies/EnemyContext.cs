@@ -10,5 +10,6 @@ namespace Enemy
         public EnemyMovement movement;
         public IEnemyState attackState;
         public IEnemyState chaseState;
+        public ICharacterAnimator cAnimator;
     }
 }

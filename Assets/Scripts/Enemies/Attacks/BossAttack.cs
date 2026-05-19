@@ -30,6 +30,7 @@ namespace Enemy
         private HealthComponent _health;
         private CharacterData _data;
         private EnemyCombat _enemyCombat;
+        private ICharacterAnimator _cAnimator;
         private int _stages = 3;
         private int _currentStage;
         private float _hpPerStage;
@@ -46,6 +47,7 @@ namespace Enemy
             _data = context.enemyData;
             _movement = context.movement;
             _enemyCombat = context.enemyCombat;
+            _cAnimator = context.cAnimator;
 
             _health = GetComponent<HealthComponent>();
             _hpPerStage = _data.initialHealth / _stages;
@@ -87,8 +89,14 @@ namespace Enemy
             }
             yield return RotateToTarget();
             _bulletHell.gameObject.SetActive(true);
+            var animName = "Attack";
+            _cAnimator.Play(animName);
             while (!IsPlayerClose() && _enemyCombat.IsInAttackRange())
             {
+                if(_cAnimator.IsAnimationFinished(animName))
+                {
+                    _cAnimator.Play(animName);
+                }
                 yield return null;
             }
             _bulletHell.gameObject.SetActive(false);
@@ -120,6 +128,7 @@ namespace Enemy
         #region Melee
         private IEnumerator GetClose()
         {
+            _cAnimator.Play("Move");
             _movement.SetStoppingDistance(MELEE_RANGE);
             while (!IsPlayerClose(true))
             {
@@ -147,7 +156,8 @@ namespace Enemy
                 }
             }
 
-            yield return new WaitForSeconds(0.3f); //Simulate visual attack delay
+            yield return new WaitForSeconds(0.3f);
+
             _justMeleeAttacked = true;
             _isAttacking = false;
             _lastAttackTime = Time.time;

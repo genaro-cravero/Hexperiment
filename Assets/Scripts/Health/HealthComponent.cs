@@ -12,6 +12,7 @@ namespace Health
         [SerializeField] private TextMeshProUGUI _healthText;
 
         private HealthManager _health;
+        public bool IsInitialized => _health != null;
 
         public bool IsAlive => _health.IsAlive;
 
