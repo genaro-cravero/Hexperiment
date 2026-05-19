@@ -1,6 +1,7 @@
 using Health;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,6 +33,8 @@ namespace Enemy
         private List<Renderer> _renderers = new List<Renderer>();
         private Dictionary<Renderer, Material[]> _originalMaterials = new Dictionary<Renderer, Material[]>();
         private bool _isBlinkging;
+
+        [SerializeField] private CinemachineImpulseSource _impulseSourceDeath;
 
         private void Awake()
         {
@@ -85,6 +88,8 @@ namespace Enemy
 
         private void HandleDie()
         {
+            _impulseSourceDeath.GenerateImpulse(1);
+
             UnsuscribeEvents();
 
             _visualGO.SetActive(false);

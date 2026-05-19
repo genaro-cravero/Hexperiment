@@ -1,6 +1,7 @@
 using Health;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Player
@@ -26,6 +27,9 @@ namespace Player
         private List<Renderer> _renderers = new List<Renderer>();
         private Dictionary<Renderer, Material[]> _originalMaterials = new Dictionary<Renderer, Material[]>();
         private bool _isBlinkging;
+
+        [SerializeField] private CinemachineImpulseSource _impulseSourceHurt;
+        [SerializeField] private CinemachineImpulseSource _impulseSourceDeath;
 
         private void Awake()
         {
@@ -62,7 +66,8 @@ namespace Player
         private void HandleDamage(float damage, GameObject source)
         {
             //Todo SFX 
-            //Todo camera Shake
+            _impulseSourceHurt.GenerateImpulse(0.35f);
+
             if (_isBlinkging) return;
             StartCoroutine(BlinkEffect());
         }
@@ -75,6 +80,8 @@ namespace Player
 
         private void HandleDie()
         {
+            _impulseSourceDeath.GenerateImpulse(1);
+
             UnsuscribeEvents();
             GameManager.Instance.SetCurrentState(GameState.Pause);
 

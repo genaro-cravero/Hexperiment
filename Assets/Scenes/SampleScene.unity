@@ -13877,6 +13877,7 @@ GameObject:
   - component: {fileID: 1836469266}
   - component: {fileID: 1836469265}
   - component: {fileID: 1836469269}
+  - component: {fileID: 1836469270}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -14004,6 +14005,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineConfiner3D
   BoundingVolume: {fileID: 1733834576}
   SlowingDistance: 0
+--- !u!114 &1836469270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836469264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseListener
+  ApplyAfter: 2
+  ChannelMask: 1
+  Gain: 1
+  Use2DDistance: 0
+  UseCameraSpace: 1
+  SignalCombinationMode: 0
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1869392417
 GameObject:
   m_ObjectHideFlags: 0
@@ -15517,6 +15542,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1899691646}
     m_Modifications:
+    - target: {fileID: 2252214999345300506, guid: a225128a8be13e847a6d9e223a662048, type: 3}
+      propertyPath: DefaultVelocity.x
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252214999345300506, guid: a225128a8be13e847a6d9e223a662048, type: 3}
+      propertyPath: DefaultVelocity.y
+      value: -0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252214999345300506, guid: a225128a8be13e847a6d9e223a662048, type: 3}
+      propertyPath: DefaultVelocity.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252214999345300506, guid: a225128a8be13e847a6d9e223a662048, type: 3}
+      propertyPath: ImpulseDefinition.ImpulseDuration
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4208765883546247857, guid: a225128a8be13e847a6d9e223a662048, type: 3}
       propertyPath: m_Name
       value: Player
