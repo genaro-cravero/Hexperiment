@@ -388,7 +388,6 @@ MonoBehaviour:
     m_Bits: 136
   _muzzleVFX: {fileID: 395523713114555112}
   _shootsClip:
-  - {fileID: 8300000, guid: 811f15cd013045042b732432e76aa882, type: 3}
   - {fileID: 8300000, guid: 2526f0b8f52c2c446bf127cc906e043d, type: 3}
   - {fileID: 8300000, guid: 00f3e3b6d7c40aa49ae0221613e88b50, type: 3}
   - {fileID: 8300000, guid: e6a0b91ba5e351c4ba90dc7b6a4a9390, type: 3}

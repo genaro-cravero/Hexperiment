@@ -12,10 +12,14 @@ public class Bullet : MonoBehaviour
 
     [Header("VFX")]
     [SerializeField] private ParticleSystem _hitVfxPrefab;
+    [SerializeField, Range(0, 1)] private float _hitsVolume = 0.3f;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip[] _hitClips;
 
     private float _speed = 20f;
     private float _lifeTime = 3f;
-
+    
     private float _damage;
     private LayerMask _targetLayer;
     private IObjectPool<Bullet> _pool;
@@ -62,6 +66,10 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("OuterWall") || (_collideWithInnerWalls && other.CompareTag("InnerWall")))
         {
             SpawnHitVfx(hitPoint);
+            if(_hitClips.Length > 0)
+            {
+                SoundFXManager.Instance.PlaySound(_hitClips, hitPoint, _hitsVolume);
+            }
             _pool.Release(this);
             return;
         }
@@ -72,6 +80,10 @@ public class Bullet : MonoBehaviour
                 damageable.TakeDamage(_damage, gameObject, _push);
             }
             SpawnHitVfx(hitPoint);
+            if(_hitClips.Length > 0)
+            {
+                SoundFXManager.Instance.PlaySound(_hitClips, hitPoint, _hitsVolume);
+            }
             _pool.Release(this);
         }
     }

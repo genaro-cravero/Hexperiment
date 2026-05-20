@@ -744,9 +744,9 @@ MonoBehaviour:
   _muzzleVFX: {fileID: 1751161343804231509}
   _bulletData: {fileID: 11400000, guid: ceed19b4e66910443965393a61fd0492, type: 2}
   _shootsClip:
-  - {fileID: 8300000, guid: 6ddf6ffca81a2994982f8bb4da047c98, type: 3}
-  - {fileID: 8300000, guid: d1d9fdd592f6066499cff67b03026f4b, type: 3}
+  - {fileID: 8300000, guid: 442058869fa22dc44bbb8370e1d4b3d4, type: 3}
   - {fileID: 8300000, guid: ed8d79baaf178e6459cbbb58943e83a6, type: 3}
+  - {fileID: 8300000, guid: f29faea90a3a4344cb1d75b18d90daed, type: 3}
 --- !u!114 &4856555205975871051
 MonoBehaviour:
   m_ObjectHideFlags: 0
