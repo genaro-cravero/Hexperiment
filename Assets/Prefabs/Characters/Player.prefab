@@ -426,6 +426,7 @@ MonoBehaviour:
   _upwardsModifier: 0.5
   _blinkMat: {fileID: 2100000, guid: cfe78cd9a84c5e248880c5d896b87053, type: 2}
   _timeBlinking: 0.05
+  _deathClip: {fileID: 8300000, guid: fdc1ae419e0d4724783999389cd9f699, type: 3}
   _impulseSourceHurt: {fileID: 3120564909141820090}
   _impulseSourceDeath: {fileID: 2252214999345300506}
 --- !u!114 &6371279195250182965

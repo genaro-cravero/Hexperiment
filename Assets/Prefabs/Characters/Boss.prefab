@@ -666,6 +666,11 @@ MonoBehaviour:
   _forceRandomRange: 2
   _blinkMat: {fileID: 2100000, guid: 66c9223f9d91efe4881f388a6c4ad7a2, type: 2}
   _timeBlinking: 0.05
+  _deathClips:
+  - {fileID: 8300000, guid: d829c28a68faf5e4f9032f6019c64644, type: 3}
+  - {fileID: 8300000, guid: 1d29fd571c5102b49bb633cce196dfe5, type: 3}
+  - {fileID: 8300000, guid: 0bd264c4abb72944c8d61aa53230b166, type: 3}
+  - {fileID: 8300000, guid: be8ec4d5f623ab14481255023df135ba, type: 3}
   _impulseSourceDeath: {fileID: 4796529523384298966}
 --- !u!114 &1191137035188890861
 MonoBehaviour:
