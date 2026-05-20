@@ -9,6 +9,12 @@ public class SoundFXManager : MonoBehaviour
 
     [SerializeField] private AudioSource _soundFXObject;
     [SerializeField] private Transform _soundContainer;
+
+    [Header("Music")]
+    [SerializeField, Range(0, 1)] private float _musicVolume = 0.75f;
+    [SerializeField] private AudioSource _bgMusicSource;
+    [SerializeField] private AudioSource _waveMusicSource;
+
     private IObjectPool<AudioSource> _audioSourcePool;
 
     private void Awake()
@@ -34,8 +40,11 @@ public class SoundFXManager : MonoBehaviour
 
     private IEnumerator ReleaseAudio(AudioSource audioSource)
     {
-        float clipLength = audioSource.clip.length;
-        yield return new WaitForSeconds(clipLength);
+        if (audioSource && audioSource.clip.length > 0)
+        {
+            float clipLength = audioSource.clip.length;
+            yield return new WaitForSeconds(clipLength);
+        }
 
         _audioSourcePool.Release(audioSource);
     }
@@ -66,6 +75,35 @@ public class SoundFXManager : MonoBehaviour
         audioSource.Play();
 
         StartCoroutine(ReleaseAudio(audioSource));
+    }
+
+    public void FadeSongs(bool toWave = true)
+    {
+        StartCoroutine(FadeSongsCoroutine(toWave));
+    }
+
+    private IEnumerator FadeSongsCoroutine(bool toWave)
+    {
+        float fadeDuration = toWave ? 0.65f : 3f;
+        float elapsedTime = 0f;
+
+        AudioSource fadingOutSource = toWave ? _bgMusicSource : _waveMusicSource;
+        AudioSource fadingInSource = toWave ? _waveMusicSource : _bgMusicSource;
+
+        fadingInSource.volume = 0f;
+        fadingInSource.Play();
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / fadeDuration;
+            fadingOutSource.volume = Mathf.Lerp(_musicVolume, 0f, t);
+            fadingInSource.volume = Mathf.Lerp(0f, _musicVolume, t);
+            yield return null;
+        }
+
+        fadingInSource.volume = _musicVolume;
+        fadingOutSource.Stop();
     }
 
 }

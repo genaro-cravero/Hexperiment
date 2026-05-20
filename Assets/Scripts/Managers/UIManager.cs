@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _winPanel;
     [SerializeField] private GameObject _losePanel;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip _waveStartClip;
+
     public bool IsWavePanelActive => _wavePanel.activeSelf;
 
     [Header("Wave Panel Times")]
@@ -113,6 +116,8 @@ public class UIManager : MonoBehaviour
         _wavePanel.SetActive(true);
         if (!firstTime)
         {
+            SoundFXManager.Instance.FadeSongs(true);
+
             var alpha = 0f;
             while (_waveCanvasGroup.alpha < 1f)
             {
@@ -125,6 +130,7 @@ public class UIManager : MonoBehaviour
         WaveManager.Instance.ClearEnemies();
         yield return new WaitForSeconds(WAVE_FULLBLACK_TIME);
         _waveText.gameObject.SetActive(true);
+        SoundFXManager.Instance.PlaySound(_waveStartClip, Vector3.zero);
         StartCoroutine(HideWavePanel());
     }
 
@@ -140,6 +146,8 @@ public class UIManager : MonoBehaviour
         }
         _wavePanel.SetActive(false);
         _waveText.gameObject.SetActive(false);
+
+        SoundFXManager.Instance.FadeSongs(false);
         GameManager.Instance.SetCurrentState(GameState.Playing);
     }
 }
