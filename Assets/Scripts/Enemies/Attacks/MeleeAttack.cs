@@ -11,6 +11,9 @@ namespace Enemy
         [Header("VFX")]
         [SerializeField] private ParticleSystem _hitVfxPrefab;
 
+        [Header("Audio")]
+        [SerializeField] private AudioClip[] _hitClips;
+
         private float _attackRadius;
         private float _damage = 1f;
 
@@ -58,6 +61,7 @@ namespace Enemy
                 }
                 Quaternion rot = Quaternion.LookRotation(_player.position - transform.position);
                 VfxManager.Instance.Play(_hitVfxPrefab, _player.position, rot);
+                SoundFXManager.Instance.PlaySound(_hitClips, transform.position);
             }
             yield return null;
             yield return new WaitUntil(() => _cAnimator.IsAnimationFinished(attackAnimName));

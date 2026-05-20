@@ -392,6 +392,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _hitVfxPrefab: {fileID: 8460667080445658518, guid: a3e2c3406e02f2c4ba86cfb1604277bd, type: 3}
+  _hitClips:
+  - {fileID: 8300000, guid: baefeca17d129d3428ccb4af921b0eaa, type: 3}
+  - {fileID: 8300000, guid: 8c599c7fef1566c469cbdb71069ee7f3, type: 3}
+  - {fileID: 8300000, guid: 02b06fcf92c469344998ec109960b616, type: 3}
 --- !u!114 &327639024681591670
 MonoBehaviour:
   m_ObjectHideFlags: 0
