@@ -19,6 +19,9 @@ namespace Player
         [SerializeField] private VisualEffect _muzzleVFX;
         private IObjectPool<Bullet> _bulletPool;
 
+        [Header("Audio")]
+        [SerializeField] private AudioClip[] _shootsClip;
+
         private DetectCollision _detectCollision;
         private PlayerInputController _inputController;
         private PlayerStats _playerStats;
@@ -133,6 +136,7 @@ namespace Player
                 bullet.transform.SetPositionAndRotation(_shootPoint.position, _shootPoint.rotation);
                 bullet.Init(_bulletPool);
 
+                SoundFXManager.Instance.PlaySound(_shootsClip, _shootPoint.position);
                 _muzzleVFX.Play();
                 _cAnimator.Play("Attack");
 
