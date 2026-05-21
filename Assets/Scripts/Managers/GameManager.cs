@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
         Cursor.lockState = CursorLockMode.Confined;
-        SetCurrentState(GameState.Playing);
+        SetCurrentState(GameState.Pause);
     }
 
     public void WinGame()

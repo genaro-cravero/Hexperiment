@@ -1,11 +1,13 @@
 using Health;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
     public static WaveManager Instance { get; private set; }
+    [SerializeField] private GameObject _cinemachineCamera;
 
     [Header("Wave")]
     [SerializeField] private Wave[] _waves;
@@ -38,10 +40,27 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void StartWaves()
     {
+        StartCoroutine(StartGame());
+    }
+
+    private IEnumerator StartGame()
+    {
+        Time.timeScale = 1f;
+        _cinemachineCamera.SetActive(true);
+        var mainCam = Camera.main;
+        var brain = mainCam.GetComponent<CinemachineBrain>();
+        if (brain != null)
+        {
+            yield return null;
+            yield return new WaitUntil(() => !brain.IsBlending);
+        }
+        yield return new WaitForSecondsRealtime(0.5f);
+        GameManager.Instance.SetCurrentState(GameState.Playing);
         UIManager.Instance.ShowWavePanel(_currentWave + 1, true);
         StartCoroutine(StartWave());
+
     }
 
     private IEnumerator StartWave()
