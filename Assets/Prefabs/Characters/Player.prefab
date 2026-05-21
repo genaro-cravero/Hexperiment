@@ -387,6 +387,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   _muzzleVFX: {fileID: 395523713114555112}
+  _shootsClip:
+  - {fileID: 8300000, guid: b4bc46fd9e1c4ea49861a091ef9ee11d, type: 3}
+  - {fileID: 8300000, guid: 2526f0b8f52c2c446bf127cc906e043d, type: 3}
+  - {fileID: 8300000, guid: 00f3e3b6d7c40aa49ae0221613e88b50, type: 3}
+  - {fileID: 8300000, guid: e6a0b91ba5e351c4ba90dc7b6a4a9390, type: 3}
 --- !u!114 &6660831681044713762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +426,7 @@ MonoBehaviour:
   _upwardsModifier: 0.5
   _blinkMat: {fileID: 2100000, guid: cfe78cd9a84c5e248880c5d896b87053, type: 2}
   _timeBlinking: 0.05
+  _deathClip: {fileID: 8300000, guid: fdc1ae419e0d4724783999389cd9f699, type: 3}
   _impulseSourceHurt: {fileID: 3120564909141820090}
   _impulseSourceDeath: {fileID: 2252214999345300506}
 --- !u!114 &6371279195250182965

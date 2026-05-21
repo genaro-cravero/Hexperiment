@@ -470,6 +470,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _enemyData: {fileID: 11400000, guid: 17c2780f1b9b99640a6ca56608632cb9, type: 2}
+  _shootClips:
+  - {fileID: 8300000, guid: 9dd6f6c6addbc714cb90ac9286cd53dc, type: 3}
+  - {fileID: 8300000, guid: 12bdf4a1667635343bed3aed84801730, type: 3}
+  - {fileID: 8300000, guid: 0e36c19341aa04b44851e0e1295c8dbe, type: 3}
+  - {fileID: 8300000, guid: 002f20409fdb29c418b3b0dee49461e8, type: 3}
 --- !u!1 &4520052725395882793
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,6 +671,8 @@ MonoBehaviour:
   _forceRandomRange: 2
   _blinkMat: {fileID: 2100000, guid: 66c9223f9d91efe4881f388a6c4ad7a2, type: 2}
   _timeBlinking: 0.05
+  _deathClips:
+  - {fileID: 8300000, guid: 22735d474dd9078428a54f43c00b4bc7, type: 3}
   _impulseSourceDeath: {fileID: 4796529523384298966}
 --- !u!114 &1191137035188890861
 MonoBehaviour:

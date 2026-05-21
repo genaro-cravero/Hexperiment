@@ -167,6 +167,11 @@ MonoBehaviour:
   _collideWithInnerWalls: 1
   _rotateSpeed: 0
   _hitVfxPrefab: {fileID: 2955623459812423941, guid: 21e3e86a02a5e7a4ba22872963b83e77, type: 3}
+  _hitsVolume: 0.5
+  _hitClips:
+  - {fileID: 8300000, guid: fdaf26693e7eaf346bc7b1509f3bbd84, type: 3}
+  - {fileID: 8300000, guid: ac965b14540805041a1bf7f0c6df4360, type: 3}
+  - {fileID: 8300000, guid: 24dac332dbe32a64f83a092b63b6dda6, type: 3}
 --- !u!1 &6432080585322002605
 GameObject:
   m_ObjectHideFlags: 0

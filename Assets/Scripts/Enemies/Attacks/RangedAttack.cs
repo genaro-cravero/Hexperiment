@@ -19,6 +19,9 @@ namespace Enemy
         [SerializeField] private BulletData _bulletData;
         private IObjectPool<Bullet> _bulletPool;
 
+        [Header("Audio")]
+        [SerializeField] private AudioClip[] _shootsClip;
+
         private float _damage = 1f;
         private float _fireRate = 1f;
         private float _lastAttackTime;
@@ -101,6 +104,8 @@ namespace Enemy
             }
 
             var attackAnimName = "Attack";
+
+            SoundFXManager.Instance.PlaySound(_shootsClip, _shootPoint.position);
             _muzzleVFX.Play();
             _cAnimator.Play(attackAnimName);
 

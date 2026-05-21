@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16037738, g: 0.12179603, b: 0.1406623, a: 1}
+  m_Color: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -98,7 +98,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -152,6 +152,22 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3440391861565533891}
+          m_TargetAssemblyTypeName: UpgradeButtonUI, Assembly-CSharp
+          m_MethodName: OnHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &3440391861565533891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +181,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeButtonUI
   _upgradeText: {fileID: 7136320564456892325}
+  _buttonImage: {fileID: 956771237094244996}
+  _selectClip: {fileID: 8300000, guid: 44a0e256071146b4482cec80ef6bbda7, type: 3}
+  _hoverClip: {fileID: 8300000, guid: fdaf26693e7eaf346bc7b1509f3bbd84, type: 3}
+  _commonColor: {r: 0.16078432, g: 0.12156863, b: 0.14117648, a: 1}
+  _uncommonColor: {r: 0.11712353, g: 0.5283019, b: 0.2531524, a: 1}
+  _rareColor: {r: 0.15659486, g: 0.32137772, b: 0.6509434, a: 1}
+  _epicColor: {r: 0.41344774, g: 0.16487184, b: 0.5377358, a: 1}
+  _legendaryColor: {r: 1, g: 0.7452609, b: 0.023584902, a: 1}
 --- !u!1 &4796907850751027379
 GameObject:
   m_ObjectHideFlags: 0

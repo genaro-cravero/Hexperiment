@@ -8,6 +8,9 @@ public class BulletHell : MonoBehaviour
     [SerializeField] private LayerMask _shootLayer;
     [SerializeField] private CharacterData _enemyData;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip[] _shootClips;
+
     private int _currentStage;
 
     private bool _isShooting;
@@ -60,6 +63,8 @@ public class BulletHell : MonoBehaviour
     public void Shoot()
     {
         _isShooting = true;
+        SoundFXManager.Instance.PlaySound(_shootClips, transform.position);
+
         switch (_stage[_currentStage].bulletPattern)
         {
             case BulletPattern.DoubleSpiral:

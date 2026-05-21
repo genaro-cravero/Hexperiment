@@ -34,6 +34,9 @@ namespace Enemy
         private Dictionary<Renderer, Material[]> _originalMaterials = new Dictionary<Renderer, Material[]>();
         private bool _isBlinkging;
 
+        [Header("Audio")]
+        [SerializeField] private AudioClip[] _deathClips;
+
         [SerializeField] private CinemachineImpulseSource _impulseSourceDeath;
 
         private void Awake()
@@ -89,6 +92,7 @@ namespace Enemy
         private void HandleDie()
         {
             _impulseSourceDeath.GenerateImpulse(1);
+            SoundFXManager.Instance.PlaySound(_deathClips, transform.position);
 
             UnsuscribeEvents();
 

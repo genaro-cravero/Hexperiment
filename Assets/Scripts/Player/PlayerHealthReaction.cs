@@ -28,6 +28,9 @@ namespace Player
         private Dictionary<Renderer, Material[]> _originalMaterials = new Dictionary<Renderer, Material[]>();
         private bool _isBlinkging;
 
+        [Header("Audio")]
+        [SerializeField] private AudioClip _deathClip;
+
         [SerializeField] private CinemachineImpulseSource _impulseSourceHurt;
         [SerializeField] private CinemachineImpulseSource _impulseSourceDeath;
 
@@ -81,6 +84,7 @@ namespace Player
         private void HandleDie()
         {
             _impulseSourceDeath.GenerateImpulse(1);
+            SoundFXManager.Instance.PlaySound(_deathClip, transform.position);
 
             UnsuscribeEvents();
             GameManager.Instance.SetCurrentState(GameState.Pause);
