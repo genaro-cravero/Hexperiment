@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class WaveManager : MonoBehaviour
     [Header("Timing")]
     [SerializeField] private float _timeBetweenWaves = 3f;
     [SerializeField] private float _spawnDelay = 0.5f;
+    private WaitForSecondsRealtime _waitTime = new(0.5f);
 
     private int _enemiesAlive;
     //public float WaveProgress => _enemiesAlive > 0 ? 1f - (float)_enemiesAlive / GetTotalEnemiesInCurrentWave() : 1f;
@@ -38,6 +40,23 @@ public class WaveManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        if(SceneManager.sceneCount == 1)
+        {
+            StartCoroutine(WaitGameToSetUp());
+        }
+    }
+
+    private IEnumerator WaitGameToSetUp()
+    {
+        yield return _waitTime;
+        var mainCamera = Camera.main;
+        var brain = mainCamera.GetComponent<CinemachineBrain>();
+        var activeCamera = brain.ActiveVirtualCamera as CinemachineVirtualCameraBase;
+        if (activeCamera != null)
+            activeCamera.gameObject.SetActive(false);
+
+        StartWaves();
     }
 
     public void StartWaves()
@@ -56,7 +75,7 @@ public class WaveManager : MonoBehaviour
             yield return null;
             yield return new WaitUntil(() => !brain.IsBlending);
         }
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return _waitTime;
         GameManager.Instance.SetCurrentState(GameState.Playing);
         UIManager.Instance.ShowWavePanel(_currentWave + 1, true);
         StartCoroutine(StartWave());
